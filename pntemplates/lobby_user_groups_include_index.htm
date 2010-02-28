@@ -1,0 +1,113 @@
+		<div class="lobby_groupbox" id="lobby_personal_index">
+			<!--[if $groupOwner and $index eq ""]-->
+				[<a href="<!--[pnmodurl fqurl="true" modname="lobby" func="group" id=$group.id do="modifyindex"]-->"><!--[pnml name="_LOBBY_GROUP_MODIFY_INDEX"]--></a>]
+			<!--[else if $index ne ""]-->
+				<!--[$index|pnmodcallhooks]-->
+			<!--[/if]-->
+		</div>
+		<div id="lobby_indextabs" class="lobby_important lobby_tabtoggle pn-hide">
+			<a class="lobby_link" id="lobby_indextab_topics"><!--[pnml name="_LOBBY_SHORT_LATEST_TOPICS"]--></a>
+			<a class="lobby_link" id="lobby_indextab_postings"><!--[pnml name="_LOBBY_SHORT_LATEST_POSTINGS"]--></a>
+		</div>
+		<div class="lobby_groupbox" id="lobby_topics">
+			<p>
+			<h2><!--[pnml name="_LOBBY_GROUP_NEW_TOPICS"]--></h2>
+			</p>
+		<!--[pnajaxheader prototype="1"]-->
+
+		<div class="lobby_index_forum_wrapper">
+
+			<!--[include file="lobby_user_groups_include_forum_topics_inc.htm"]-->
+
+		</div>
+			<p>
+			[<a href="<!--[pnmodurl fqurl="true" modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[pnml name="_LOBBY_GROUP_FORUM_INDEX"]--></a>]
+			[<a href="<!--[pnmodurl fqurl="true" modname="lobby" func="group" id=$group.id do="forums" action="latesttopics"]-->"><!--[pnml name="_LOBBY_GROUP_FORUM_RECENT_TOPICS"]--></a>]
+			</p>
+		</div>
+		<div class="lobby_groupbox" id="lobby_postings">
+			<p>
+			<h2><!--[pnml name="_LOBBY_GROUP_NEW_POSTINGS"]--></h2>
+			</p>
+
+		<div class="lobby_index_forum_wrapper">
+
+			<!--[assign var="topics" value=$posts]-->
+			<!--[include file="lobby_user_groups_include_forum_topics_inc.htm"]-->
+
+		</div>
+			<p>
+			[<a href="<!--[pnmodurl fqurl="true" modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[pnml name="_LOBBY_GROUP_FORUM_INDEX"]--></a>]
+			[<a href="<!--[pnmodurl fqurl="true" modname="lobby" func="group" id=$group.id do="forums" action="latestposts"]-->"><!--[pnml name="_LOBBY_GROUP_FORUM_RECENT_POSTS"]--></a>]
+			</p>
+		</div>
+		<div class="lobby_groupbox" >
+			<div class="lobby_rss">
+				<a href="<!--[pnmodurl modname="lobby" type="rss" func="members" id=$group.id]-->"><img src="modules/lobby/pnimages/rss.jpg"></a>
+			</div>
+			<p>
+			<h2><!--[pnml name="_LOBBY_GROUP_LATEST_MEMBERS"]--></h2>
+			</p>
+			<p>
+			<!--[foreach from=$members item="member"]-->
+				<!--[userlink uid=$member.uid uname=$member.uname]-->
+			<!--[foreachelse]-->
+				<div><!--[pnml name="_LOBBY_GROUP_NOMEMBERS"]--></div>
+			<!--[/foreach]-->
+			<br style="clear:both;" />
+			</p>
+
+
+		</div>
+
+		<!--[pager show="page" rowcount=$facts.members limit=$membersperpage posvar=lobbypager shift=1 class="lobby_pager"]-->
+
+		<div class="lobby_groupbox">
+			<p>
+			<h2><!--[pnml name="_LOBBY_GROUP_ONLINE_MEMBERS"]--></h2>
+			</p>
+			<p>
+			<div class="lobby_onlinebox">
+			<!--[foreach from=$onlinemembers item="member"]-->
+				<!--[userlink uid=$member.uid uname=$member.uname]-->
+			<!--[foreachelse]-->
+				<div><!--[pnml name="_LOBBY_GROUP_NOMEMBERS_ONLINE"]--></div>
+			<!--[/foreach]-->
+			<br style="clear:both;" />
+			</div>
+			</p>
+		</div>
+
+		<!--[pager show="page" rowcount=$onlinemembers limit=$membersperpage posvar=lobbypager shift=1 class="lobby_pager"]-->
+
+		<!--[if $mymapavailable and $group.coordinates ne ""]-->
+			<div class="lobby_groupbox" >
+				<p>
+				<h2><!--[pnml name="_LOBBY_OUR_PLACE"]--></h2>
+				</p>
+				<p>
+				<!--[pnmodapifunc modname="MyMap" type="user" func="generateMap" width="650" height="250" maptype="hybrid" zoomfactor="11" coords=$coords]-->
+				</p>
+			</div>
+		<!--[/if]-->
+
+<!--[include file="lobby_user_groups_include_forum_legend_inc.htm"]-->
+
+
+<script type="text/javascript">
+	$('lobby_topics').toggle();
+	$('lobby_indextab_postings').toggle();
+	$('lobby_indextabs').removeClassName('pn-hide');
+	Event.observe('lobby_indextab_topics', 'click', function(event) {
+		$('lobby_indextab_topics').toggle();
+		$('lobby_indextab_postings').toggle();
+		$('lobby_topics').toggle();
+		$('lobby_postings').toggle();
+	});
+	Event.observe('lobby_indextab_postings', 'click', function(event) {
+		$('lobby_indextab_topics').toggle();
+		$('lobby_indextab_postings').toggle();
+		$('lobby_topics').toggle();
+		$('lobby_postings').toggle();
+	});
+</script>

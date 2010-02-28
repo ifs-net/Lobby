@@ -1,0 +1,48 @@
+<!--[include file="lobby_admin_header.htm"]-->
+
+<p>
+<h1><!--[pnml name="_LOBBY_CATEGORY_MANAGEMENT"]--></h1>
+</p>
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+<p>
+<!--[pnformlabel for="title" text=_LOBBY_CATEGORY_TITLE]-->:<br />
+<!--[pnformtextinput id="title" textMode="singleLine" maxLength="60" mandatory="1"]-->
+</p>
+
+<p>
+<!--[pnformlabel for="official" text=_LOBBY_CATEGORY_OFFICIAL]-->:<br />
+<!--[pnformdropdownlist id="official" items=$yesno_items]--><br />
+<!--[pnml name="_LOBBY_CATEGORY_OFFICIAL_EXPL"]-->	
+</p>
+
+<!--[if $id gt 0]-->
+	<p>
+    <!--[pnformcheckbox id="delete" checked="0"]-->
+   	<!--[pnformlabel for="delete" text=_LOBBY_CATEGORY_DELETE]-->
+	</p>
+<!--[/if]-->
+
+<p >
+<!--[pnformbutton commandName="update" text="_LOBBY_CATEGORY_UPDATE_STORE"]-->
+</p>
+<!--[/pnform]-->
+
+</p>
+<p>
+<h2><!--[pnml name="_LOBBY_CATEGORY_OVERVIEW"]--></h2>
+</p>
+<p>
+<ul>
+<!--[foreach from=$categories item="category"]-->
+	<li><a href="<!--[pnmodurl modname="lobby" type="admin" func="categories" id=$category.id]-->"><!--[$category.title]--></li>
+<!--[foreachelse]-->
+	<li><!--[pnml name="_LOBBY_CATEGORY_NOCATECORIES"]--></li>
+<!--[/foreach]-->
+</ul>
+
+</p>
+
+<!--[include file="lobby_admin_footer.htm"]-->

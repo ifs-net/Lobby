@@ -1,0 +1,22 @@
+<div class="lobby_groupcontent">
+<h1><!--[pnml name="_LOBBY_GROUP_PENDING_MEMBERS"]--></h1>
+
+<p>
+<!--[pnml name="_LOBBY_GROUP_PENDING_TEXT"]-->
+</p>
+
+<ul>
+<!--[foreach from=$pending item="user"]-->
+	<li><!--[$user.date|pndate_format]-->: <!--[$user.uname|userprofilelink]--> - 
+	[<a href="<!--[pnmodurl modname="lobby" func="group" do="pending" id=$group.id add=$user.uid action="accept" authid=$authid]-->"><!--[pnml name="_LOBBY_GROUP_PENDING_ACCEPT"]--></a>, 
+	<a href="<!--[pnmodurl modname="lobby" func="group" do="pending" id=$group.id add=$user.uid action="deny" authid=$authid]-->"><!--[pnml name="_LOBBY_GROUP_PENDING_DENY"]--></a>]
+	<!--[if $user.text ne '']-->
+		<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--[$user.text|pnvarprepfordisplay]-->
+	<!--[/if]-->
+	</li>
+<!--[foreachelse]-->
+	<li><!--[pnml name="_LOBBY_GROUP_NO_PENDING"]--></li>
+<!--[/foreach]-->
+</ul>
+</div>
+

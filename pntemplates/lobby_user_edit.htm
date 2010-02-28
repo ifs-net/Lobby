@@ -1,0 +1,76 @@
+<!--[include file="lobby_user_header.htm"]-->
+
+<h1><!--[pnml name="_LOBBY_MODIFY_GROUUP"]--></h1>
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+<div>
+	<p>
+	<!--[pnformlabel for="title" text=_LOBBY_EDIT_GROUP_TITLE]-->:<br />
+	<!--[if $edit eq 1]-->
+		<!--[pnformtextinput id="title" textMode="singleLine" maxLength="60" mandatory="1" readonly="true"]-->
+	<!--[else]-->
+		<!--[pnformtextinput id="title" textMode="singleLine" maxLength="60" mandatory="1"]-->
+	<!--[/if]-->
+	<br />
+	<span class="lobby_important"><!--[pnml name="_LOBBY_EDIT_GROUP_NOCHANGELATER"]--></span>
+	</p>
+	<p>
+	<!--[pnformlabel for="description" text=_LOBBY_EDIT_GROUP_DESCRIPTION]-->:<br />
+	<!--[pnformtextinput id="description" textMode="multiLine" maxLength="255" mandatory="1"]-->
+	</p>
+	<p>
+	<!--[pnformlabel for="indextopics" text=_LOBBY_EDIT_INDEX_POSTINGS]-->:<br />
+	<!--[pnformintinput id="indextopics" textMode="singleLine" maxLength="2" minValue="5" maxValue="20" mandatory="1"]-->
+	</p>
+	<p>
+	<!--[pnformlabel for="category" text=_LOBBY_EDIT_GROUP_CATEGORY]-->:<br />
+    <!--[pnformdropdownlist id="category" items=$category_items]--><br />
+	<!--[if $edit ne 1]-->
+		<!--[pnml name="_LOBBY_EDIT_OFFICIALGROUPSECPL"]--><br />
+	<!--[/if]-->
+	<span class="lobby_important"><!--[pnml name="_LOBBY_EDIT_GROUP_NOCHANGELATER"]--></span>
+	</p>
+
+	<p>
+    <!--[pnformcheckbox id="forumsvisible" checked="0"]-->
+   	<!--[pnformlabel for="forumsvisible" text=_LOBBY_FORUMS_VISIBLE_TO_ALL]-->
+   	</p>
+
+	<p>
+	<!--[if $mymapavailable]-->
+		<!--[pnmodapifunc modname="MyMap" type="user" func="generateMap" width="400" height="150" maptype="hybrid" zoomfactor="7" lat="lat" lng="lng" coords=$coords]--><br />
+		<!--[pnml name="_LOBBY_CLICK_CARD_FOR_COORDS"]--><br />
+	<!--[/if]-->
+	<img src="images/icons/extrasmall/agt_internet.gif" /> 
+	<!--[pnml name="_LOBBY_LNG"]-->: <!--[pnformtextinput id="lng" mandatory="0" maxLength="25" textMode="singleLine"]-->
+	<!--[pnml name="_LOBBY_LAT"]-->: <!--[pnformtextinput id="lat" mandatory="0" maxLength="25" textMode="singleLine"]-->
+	</p>
+
+	<!--[if $edit ne 1]-->
+		<p>
+	    <!--[pnformcheckbox id="skeleton" checked="0"]-->
+	   	<!--[pnformlabel for="skeleton" text=_LOBBY_CREATE_FORUMS]-->
+	   	</p>
+	<!--[/if]-->
+
+	<!--[if $edit eq 1]-->
+		<p>
+	    <span class="lobby_important"><!--[pnformcheckbox id="delete" checked="0"]-->
+	   	<!--[pnformlabel for="delete" text=_LOBBY_DELETE_GROUP]--></span>
+	   	</p>
+	<!--[/if]-->
+
+	<p>	
+	<!--[pnformlabel for="public" text=_LOBBY_EDIT_GROUP_MODERATED]-->:<br />
+    <!--[pnformdropdownlist id="moderated" items=$yesno_items]-->
+	</p>
+</div>
+
+<div >
+<!--[pnformbutton commandName="update" text="_LOBBY_EDIT_UPDATE_STORE"]-->
+</div>
+<!--[/pnform]-->
+
+<!--[include file="lobby_user_footer.htm"]-->

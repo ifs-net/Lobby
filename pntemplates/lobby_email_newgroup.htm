@@ -1,0 +1,17 @@
+<!--[pnml name="_LOBBY_EMAIL_NEW_GROUP"]-->:
+
+
+<!--[$title]-->
+=======================
+<!--[$description]-->
+
+
+<!--[if $official eq 1]--><!--[pnml name="_LOBBY_EMAIL_PENDING_NOW"]-->
+<!--[/if]-->
+
+<!--[pnml name="_LOBBY_EMAIL_VIEW_GROUP"]-->
+<!--[pnmodurl modname="lobby" func="group" id=$id fqurl="true"]-->
+
+<!--[if $official eq 1]--><!--[pnml name="_LOBBY_EMAIL_VIEW_PENDING"]-->
+<!--[pnmodurl modname="lobby" type=admin func="pending" fqurl="true"]-->
+<!--[/if]-->

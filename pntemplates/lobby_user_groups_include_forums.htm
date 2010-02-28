@@ -1,0 +1,79 @@
+<!--[pnajaxheader prototype="1"]-->
+<div class="lobby_groupcontent">
+<div class="lobby_breadcrumb">
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[$group.title|pnvarprepfordisplay]--></a> &#187; 
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[pnml name="_LOBBY_FORUMS"]--></a>
+</div>
+
+<h1><!--[pnml name="_LOBBY_FORUM_INDEX"]--></h1>
+
+<!--[if $facts.status lt 1]-->
+	<div class="pn-informationmsg"><!--[pnml name="_LOBBY_FORUM_PUBLICSTATUS_TEXT"]--></div>
+<!--[/if]-->
+
+
+<div class="lobby_forum_wrapper">
+<!--[foreach from=$forums item="forum"]-->
+
+	<div id="forum_<!--[$forum.id]-->" class="lobby_forum" onmouseover="javascript:$('forum_<!--[$forum.id]-->').addClassName('lobby_forum_topic_hover');return false;" onmouseout="javascript:$('forum_<!--[$forum.id]-->').removeClassName('lobby_forum_topic_hover');return false;">
+		<div class="lobby_forum_infobox">
+			<!--[$forum.topics]--> <!--[pnml name="_LOBBY_FORUM_TOPICS"]-->,
+			<!--[$forum.posts]--> <!--[pnml name="_LOBBY_FORUM_POSTS"]-->.
+		</div>
+		<div class="lobby_forum_title">
+			<h2><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$forum.id]-->"><img src="images/icons/small/agt_forward.gif" /> <!--[$forum.title]--></h2></a>
+		</div>
+		<div class="lobby_forum_description">
+			<span class="lobby_forum_date">
+			<!--[if $forum.public_status eq 0]-->
+				<!--[pnml name="_LOBBY_PUBLIC_STATUS_ALL"]-->
+			<!--[elseif $forum.public_status eq 1]-->
+				<!--[pnml name="_LOBBY_PUBLIC_STATUS_REGUSERS"]-->
+			<!--[else]-->
+				<!--[pnml name="_LOBBY_PUBLIC_STATUS_GROUP"]-->
+			<!--[/if]-->
+			</span><br />
+			<!--[$forum.description|pnvarprepfordisplay|truncate:110:"..."]-->
+		</div>
+		<!--[if $forum.topics gt 0]-->
+		<div class="lobby_forum_latest">
+			<div class="lobby_forum_latest_topics">
+				<!--[pnmodapifunc modname="lobby" type="forumtopics" func="get" sort="creationdate" fid=$forum.id numrows="1" offset="0" assign="lasttopic"]-->
+				<!--[if $lasttopic|@count gt 0]-->
+					<!--[pnml name="_LOBBY_FORUM_LATES_TOPIC"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$forum.gid do="forum" fid=$forum.id topic=$forum.last_tid]-->"><!--[$lasttopic.0.title|truncate:50:'...'|pnvarprepfordisplay]--></a><br />
+					<!--[pnml name="_LOBBY_OF"]--> <!--[pnusergetvar name="uname" uid=$forum.last_topic_poster assign="uname"]--> <!--[$uname|userprofilelink]-->, <!--[$forum.last_topic_date|date:2]-->
+				<!--[/if]-->
+			</div>
+			<div class="lobby_forum_latest_posts">
+				<!--[pnmodapifunc modname="lobby" type="forumtopics" func="get" fid=$forum.id numrows="1" offset="0" assign="lastpost"]-->
+				<!--[if $lastpost|@count gt 0]-->
+					<!--[pnml name="_LOBBY_FORUM_LATES_POST"]-->:  <a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$forum.gid do="forum" fid=$forum.id topic=$forum.last_poster_tid]-->"><!--[$lastpost.0.title|truncate:50:'...'|pnvarprepfordisplay]--></a><br />
+					<!--[pnml name="_LOBBY_OF"]--> <!--[pnusergetvar name="uname" uid=$forum.last_poster assign="uname"]--> <!--[$uname|userprofilelink]-->, <!--[$forum.last_topic_date|date:2]-->
+				<!--[/if]-->
+			</div>
+		</div>
+		<!--[/if]-->
+		<br style="clear:both;" />
+	</div>
+
+<!--[foreachelse]-->
+
+	<ul>
+		<li><!--[pnml name="_LOBBY_GROUP_NO_FORUM"]-->
+	</ul>
+
+<!--[/foreach]-->
+</div>
+
+
+<p>
+<h2><!--[pnml name="_LOBBY_LATEST_POSTS"]--></h2>
+</p>
+<div class="lobby_index_forum_wrapper">
+	<!--[assign var="topicscounter" value=$group.topics]-->
+	<!--[include file="lobby_user_groups_include_forum_topics_inc.htm"]-->
+</div>
+
+</div>
+
+		<!--[include file="lobby_user_groups_include_forum_legend_inc.htm"]-->

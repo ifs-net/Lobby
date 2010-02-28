@@ -1,0 +1,36 @@
+<!--[include file="lobby_admin_header.htm"]-->
+
+<p>
+<h1><!--[pnml name="_LOBBY_IMPORT_MANAGEMENT"]--></h1>
+</p>
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+<p>
+<h1><!--[pnml name="_LOBBY_IMPORT_USERS"]--></h1>
+<!--[pnml name="_LOBBY_IMPORT_USERS_TEXT"]-->
+</p>
+
+<p>
+<!--[pnformlabel for="group" text=_LOBBY_COPY_FROM]-->: <!--[pnformdropdownlist id="group" items=$groups_items]-->
+<!--[pnformlabel for="lobby_group" text=_LOBBY_COPY_TO]-->: <!--[pnformdropdownlist id="lobby_group" items=$lobby_groups_items]-->
+</p>
+
+<p>
+<h1><!--[pnml name="_LOBBY_IMPORT_FORUMS"]--></h1>
+<!--[pnml name="_LOBBY_IMPORT_FORUMS_TEXT"]-->
+</p>
+
+<p>
+<!--[pnformlabel for="forum" text=_LOBBY_COPY_FROM]-->: <!--[pnformdropdownlist id="forum" items=$forums_items]-->
+<!--[pnformlabel for="lobby_forum" text=_LOBBY_COPY_TO]-->: <!--[pnformdropdownlist id="lobby_forum" items=$lobby_forums_items]-->
+</p>
+
+
+<p >
+<!--[pnformbutton commandName="update" text="_LOBBY_CATEGORY_UPDATE_STORE"]-->
+</p>
+<!--[/pnform]-->
+
+<!--[include file="lobby_admin_footer.htm"]-->

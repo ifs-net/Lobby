@@ -1,0 +1,95 @@
+<!--[pnajaxheader prototype="1"]-->
+<div class="lobby_groupcontent" id="lobby_top">
+
+<div class="lobby_breadcrumb">
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[$group.title]--></a> &#187; 
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[pnml name="_LOBBY_FORUMS"]--></a> &#187; 
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$forum.id]-->"><!--[$forum.title|pnvarprepfordisplay]--></a>
+<!--[if $topic.title ne '']-->
+	&#187; 
+	<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$forum.id topic=$topic.id]-->"><!--[$topic.title|pnvarprepfordisplay|truncate:30:'...']--></a>	
+<!--[/if]-->
+</div>
+
+
+
+<!--[if $editmode ne 1]-->
+	
+	<p>
+	<h2>
+	<!--[if $mode eq "topics"]-->
+		<!--[$forum.title|pnvarprepfordisplay]-->
+	<!--[else]-->
+		<img src="images/icons/extrasmall/agt_announcements.gif" /> <!--[$topic.title|pnvarprepfordisplay]-->
+	<!--[/if]-->
+	</h2>
+	</p>
+	
+	<p>
+	<!--[if $forum.description ne '' and $mode eq "topics"]-->
+		<!--[$forum.description|pnvarprepfordisplay]-->
+	<!--[/if]-->
+	</p>
+	
+	<!--[if $topic.id > 0]-->
+	
+		<!--[if $preview ne 1]-->
+			<!--[if $moderator eq 1]-->
+				<!--[include file="lobby_user_groups_include_forum_modmenu_inc.htm"]-->
+			<!--[/if]-->
+			<div class="lobby_pager">
+				<!--[pager show="page" rowcount=$postcount limit=$numrows posvar=lobbypager shift=1]-->
+			</div>
+	
+			<!--[if $memberStatus gt 0 or ($forum.public_status lt 2 and $loggedin eq 1)]-->
+				<div class="lobby_subscription">
+					<!--[subscription fid=$forum.id status=$facts.status gid=$group.id tid=$topic.id fid=$topic.fid]-->
+				</div>
+			<!--[/if]-->
+			<img src="images/icons/extrasmall/edit.gif" /> <a id="lobby_edit_link" href="#lobby_edit"><!--[pnml name="_LOBBY_NEW_REPLY"]--></a>
+	
+			<p>
+			<!--[foreach from=$posts item="post"]-->
+				<!--[include file="lobby_user_groups_include_forum_singlepost.htm"]-->
+			<!--[/foreach]-->
+			</p>
+			
+			<div class="lobby_pager">
+				<!--[pager show="page" rowcount=$postcount limit=$numrows posvar=lobbypager shift=1]-->
+			</div>
+	
+			
+		<!--[else]-->
+		
+			<!--[include file="lobby_user_groups_include_forum_preview_inc.htm"]-->
+		
+		<!--[/if]-->
+	
+	<!--[else]-->
+	
+			<!--[if $memberStatus gt 0 or ($forum.public_status lt 2 and $loggedin eq 1)]-->
+				<div class="lobby_subscription">
+					<!--[subscription fid=$forum.id status=$facts.status gid=$group.id tid=$topic.id]-->
+				</div>
+			<!--[/if]-->
+		<p class="lobby_lite">
+		<!--[pnml name="_LOBBY_FORUM_CONTAINS"]--> <!--[$forum.topics]--> <!--[pnml name="_LOBBY_TOPICS_AND"]--> <!--[$forum.posts]--> <!--[pnml name="_LOBBY_POSTS"]-->.
+		</p>
+		
+		<!--[if $preview ne 1]-->
+			<!--[assign var="topicscounter" value=$forum.topics]-->
+
+			<!--[include file="lobby_user_groups_include_forum_topics_inc.htm"]-->
+			<!--[include file="lobby_user_groups_include_forum_legend_inc.htm"]-->
+
+		<!--[else]-->
+			<!--[include file="lobby_user_groups_include_forum_preview_inc.htm"]-->
+		<!--[/if]-->
+	
+	<!--[/if]-->
+	
+<!--[/if]-->
+	
+<!--[include file="lobby_user_groups_include_forum_edit_inc.htm"]-->
+
+</div>

@@ -1,0 +1,30 @@
+<div class="lobby_groupcontent">
+
+<h1><!--[pnml name="_LOBBY_MEMBER_MANAGEMENT"]--></h1>
+
+<p>
+<a href="<!--[pnmodurl modname="lobby" func="group" do="membermanagement" id=$group.id]-->"><!--[pnml name="_LOBBY_MEMBER_MANAGEMENT_BACKLINK"]--></a>
+</p>
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+<h3><!--[pnml name="_LOBBY_MEMBER_MANAGEMENT_USER"]--> <!--[$uname|userprofilelink]--></h3>
+
+<p>
+    <!--[pnformcheckbox id="moderator" checked="0"]-->
+   	<!--[pnformlabel for="moderator" text=_LOBBY_MEMBER_MANAGEMENT_MODERATOR]-->
+</p>
+
+<p>
+    <!--[pnformcheckbox id="delete" checked="0"]-->
+   	<!--[pnformlabel for="delete" text=_LOBBY_MEMBER_MANAGEMENT_DELETE]-->
+</p>
+
+<div>
+<!--[pnformbutton commandName="update" text="_LOBBY_MEMBER_MANAGEMENT_APPLY"]-->
+</div>
+
+<!--[/pnform]-->
+
+</div>

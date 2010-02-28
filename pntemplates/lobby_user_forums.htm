@@ -1,0 +1,21 @@
+<!--[include file="lobby_user_header.htm"]-->
+
+<p>
+<span style="lobby_small">[<a href="<!--[pnmodurl modname="lobby"]-->"><!--[pnml name="_LOBBY_GROUPINDEX"]--></a>]</span>
+</p>
+
+<p>
+<!--[pnml name="_LOBBY_DISPLAY_MODE"]-->:
+<a href="<!--[pnmodurl modname="lobby" type="user" func="forums" mode="1"]-->"><!--[pnml name="_LOBBY_SHOW_ALL"]--></a>,
+<a href="<!--[pnmodurl modname="lobby" type="user" func="forums" mode="2"]-->"><!--[pnml name="_LOBBY_SHOW_ALL_OFFICIAL"]--></a>,
+<a href="<!--[pnmodurl modname="lobby" type="user" func="forums" mode="3"]-->"><!--[pnml name="_LOBBY_SHOW_OWN"]--></a>
+</p>
+
+<!--[assign var="topics" value=$allTopics]-->
+<!--[assign var="topicscounter" value=$allTopicsCount]-->
+
+<!--[include file="lobby_user_groups_include_forum_topics_inc.htm"]-->
+
+<!--[include file="lobby_user_groups_include_forum_legend_inc.htm"]-->
+
+<!--[include file="lobby_user_footer.htm"]-->

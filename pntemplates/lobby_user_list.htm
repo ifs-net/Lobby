@@ -1,0 +1,61 @@
+<!--[if $notext eq 0]-->
+	<!--[include file="lobby_user_header.htm"]-->
+	
+	<h1><!--[pnml name="_LOBBY_GROUPS_LIST"]--></h1>
+	<p>
+	<!--[pnml name="_LOBBY_GROUPS_LIST_TEXT"]--><br />
+	
+<!--	<a href="<!--[pnmodurl modname="lobby" type="user" func="edit"]-->"><!--[pnml name="_LOBBY_CREATE_GROUP"]--></a>, -->
+	</p>
+	<p>
+	<span class="lobby_important"><!--[pnml name="_LOBBY_OPTIONS"]-->:</span> <a href="<!--[pnmodurl modname="lobby"]-->"><!--[pnml name="_LOBBY_GROUPINDEX"]--></a>.
+	</p>	
+	<p>
+	<span class="lobby_important"><!--[pnml name="_LOBBY_SORT_CRITERIA"]-->:</span> <a href="<!--[pnmodurl modname="lobby" func="list" cat=$cat]-->"><!--[pnml name="_LOBBY_ALPHABETICAL"]--></a>, <a href="<!--[pnmodurl modname="lobby" func="list" order="latest" cat=$cat]-->"><!--[pnml name="_LOBBY_LATEST"]--></a>, <a href="<!--[pnmodurl modname="lobby" func="list" order="members" cat=$cat]-->"><!--[pnml name="_LOBBY_COUNTEDMEMBERS"]--></a>, <a href="<!--[pnmodurl modname="lobby" func="list" cat=$cat map="1"]-->"><!--[pnml name="_LOBBY_MAP"]--></a>.
+	</p>	
+	<!--[if $code ne '']-->
+		<!--[$code]-->
+	<!--[else]-->
+
+		<!--[if $cat gt 0]-->
+			<div class="pn-informationmsg"><!--[pnml name="_LOBBY_CAT_FILTER_HINT"]-->: <a href="<!--[pnmodurl modname="lobby" func="list"]-->"><!--[pnml name="_LOBBY_CAT_FILTER_DEACTIVATE"]--></a></div>
+    	<!--[else]-->
+            <form method="post" action="<!--[pnmodurl modname="lobby" func="list"]-->">
+                <select name="cat">
+                    <option value=""><!--[pnml name="_LOBBY_NO_CAT_FILTER"]--></option>
+                    <!--[foreach from=$categories item="item"]-->
+                        <option value="<!--[$item.id]-->"><!--[$item.title|pnvarprepfordisplay]--></option>
+                    <!--[/foreach]-->
+                </select>
+                <input type="submit" value="<!--[pnml name="_LOBBY_RELOAD"]-->" />
+            </form>
+		<!--[/if]-->
+
+		<!--[*pager show="page" rowcount=$groupscount limit=$itemsperpage posvar=lobbypager shift=1 class="lobby_pager"*]-->
+		
+		<ul>
+		<!--[foreach from=$groups item="group"]-->
+			<p>
+			<h3><!--[$group.title|pnvarprepfordisplay]--> 
+			<!--[if $cat eq 0]-->
+			(<a href="<!--[pnmodurl modname="lobby" func="list" cat=$group.category]-->"><!--[$group.categoryname]--></a>)
+			<!--[/if]-->
+			</h3>
+			<!--[$group.description|truncate:250:'...'|pnvarprepfordisplay]--><br />
+			<!--[pnml name="_LOBBY_QUICKDATA"]-->:
+			<!--[$group.members]--> <!--[pnml name="_LOBBY_MEMBERS"]-->,
+			<!--[$group.articles]--> <!--[pnml name="_LOBBY_GROUP_ARTICLES"]-->,
+			<!--[$group.forums]--> <!--[pnml name="_LOBBY_FORUMS"]-->,
+			<!--[pnml name="_LOBBY_GROUP_CREATOR"]-->: <!--[$group.uname|userprofilelink]-->.<br />
+			<span class="lobby_important">&#187; <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[pnml name="_LOBBY_VISIT_GROUP"]--></a></span>
+			</p>
+		<!--[/foreach]-->
+		</ul>
+		
+		<!--[pager show="page" rowcount=$groupscount limit=$itemsperpage posvar=lobbypager shift=1 class="lobby_pager"]-->
+	<!--[/if]-->
+	
+	<!--[include file="lobby_user_footer.htm"]-->
+<!--[else]-->
+	<!--[$code]-->
+<!--[/if]-->

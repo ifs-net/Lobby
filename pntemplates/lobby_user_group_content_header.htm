@@ -1,0 +1,239 @@
+<!--[pnajaxheader sciptaculos="1"]-->
+<span style="lobby_small">[<a href="<!--[pnmodurl modname="lobby"]-->"><!--[pnml name="_LOBBY_GROUPINDEX"]--></a>]</span>
+<!--[include file="lobby_user_group_header.htm"]-->
+	<div id="lobby_content_left">
+		<div id="lobby_memberstatus" class="lobby_groupbox lobby_statusbox<!--[if $facts.status eq 1]--> lobby_link<!--[/if]--> ">
+			<h3><!--[pnml name="_LOBBY_GROUP_YOURSTATUS"]-->:<br />
+			<!--[if $facts.status eq 2]-->
+				<!--[pnml name="_LOBBY_GROUP_CREATOR"]-->
+			<!--[elseif $facts.status eq 1]-->
+				<img src="images/icons/small/button_ok.gif" class="lobby_smallTitleIcon" />
+				<!--[pnml name="_LOBBY_GROUP_MEMBER"]-->
+			<!--[else]-->
+				<img src="images/icons/small/agt_reload.gif" class="lobby_smallTitleIcon" />
+				<!--[pnml name="_LOBBY_GROUP_NO_MEMBER"]-->
+				<!--[if $loggedin]-->
+					[<a href="<!--[pnmodurl modname="lobby" func="group" do="join" id=$group.id]-->"><!--[pnml name="_LOBBY_GROUP_JOIN"]--></a>]
+				<!--[/if]-->
+			<!--[/if]-->
+			</h3>
+			<!--[if $facts.status eq 1]-->
+				<div id="lobby_memberstatus_quit" class="lobby_small">[<a href="<!--[pnmodurl modname="lobby" func="group" do="quit" id=$group.id]-->"><!--[pnml name="_LOBBY_GROUP_QUIT"]--></a>]</div>
+			<!--[/if]-->
+		</div>
+		<!--[if $indexpage ne 1]-->
+		<div class="lobby_groupbox lobby_lite">
+			<h3><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[pnml name="_LOBBY_GROUP_INDEX_PAGE"]--></a></h3>
+		</div>
+		<!--[/if]-->
+		<!--[if $groupOwner]-->
+			<div class="lobby_groupbox lobby_adminbox" id="lobby_groupadmin">
+				<h3 id="lobby_adminbox_link" class="lobby_link"><!--[pnml name="_LOBBY_GROUP_ADMIN_MENU"]--></h3>
+				<div id="lobby_groupadmin_menu">
+					<ul>
+						<li><a href="<!--[pnmodurl modname="lobby" func="edit" id=$group.id]-->"><!--[pnml name="_LOBBY_GROUP_EDIT_INFORMATION"]--></a></li>
+						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="modifyindex"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_INDEXPAGE"]--></a></li>
+						<br />
+						<li><a href="<!--[pnmodurl modname="lobby" func="group" do="membermanagement" id=$group.id]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_MEMBER_MANAGEMENT"]--></a></li>
+						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="pending"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_PENDING"]--> (<!--[$facts.pending]-->)</a></li>
+						<br />
+						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="article"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_NEW_ARTICLE"]--></a></li>
+						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forummanagement"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_FORUM_MANAGEMENT"]--></a></li>
+						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="sync"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_SYNC"]--></a></li>
+					</ul>
+				</div>
+			</div>
+		<!--[/if]-->		
+
+		<div class="lobby_groupbox lobby_lite">
+			<h3 id="lobby_groupbox_news_link" <!--[if $openNews ne 1]-->class="lobby_link"<!--[/if]-->><!--[pnml name="_LOBBY_GROUP_NEWS"]--></h3>
+			<div id="lobby_groupbox_news">
+			<ul>
+			<!--[foreach from=$articles_short item="article"]-->
+				<li><a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$group.id do="news" story=$article.id]-->"><!--[$article.title|truncate:30:'...']--></a></li>
+			<!--[foreachelse]-->
+				<li><!--[pnml name="_LOBBY_GROUP_NONEWS"]--></li>
+			<!--[/foreach]-->
+			</ul>
+			<!--[if $articles_short|@count gt 0]-->
+				<br />
+				<div class="lobby_rss">
+					<a href="<!--[pnmodurl modname="lobby" type="rss" func="news" id=$group.id]-->"><img src="modules/lobby/pnimages/rss.jpg"></a>
+				</div>
+				<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news"]-->"><!--[pnml name="_LOBBY_NEWS_INDEX"]--></a>
+			<!--[/if]-->
+			<br style="clear:both;" />
+			</div>
+		</div>
+		<div class="lobby_groupbox lobby_lite">
+			<h3 id="lobby_groupbox_shortlinks_link" class="lobby_link"><!--[pnml name="_LOBBY_GROUP_FORUM_SHORTLINKS"]--></h3>
+			<div id="lobby_groupbox_shortlinks">
+			<ul>
+				<!--[if $lastvisit_encoded ne '']-->
+				<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latestposts" date=$lastvisit_encoded]-->"><!--[pnml name="_LOBBY_FORUM_SHORTLINK_LATEST"]--></a></li>
+				<!--[/if]-->
+				<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latestposts" hours="24"]-->"><!--[pnml name="_LOBBY_FORUM_SHORTLINK_24"]--></a></li>
+				<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latestposts" hours="168"]-->"><!--[pnml name="_LOBBY_FORUM_SHORTLINK_WEEK"]--></a></li>
+				<br />
+				<!--[if $lastvisit_encoded ne '']-->
+				<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latesttopics" date=$lastvisit_encoded]-->"><!--[pnml name="_LOBBY_FORUM_SHORTLINK_LATEST_TOPICS"]--></a></li>
+				<!--[/if]-->
+				<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latesttopics" hours="24"]-->"><!--[pnml name="_LOBBY_FORUM_SHORTLINK_24_TOPICS"]--></a></li>
+				<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latesttopics" hours="168"]-->"><!--[pnml name="_LOBBY_FORUM_SHORTLINK_WEEK_TOPICS"]--></a></li>
+				<br />
+				<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[pnml name="_LOBBY_FORUM_SHORTLINK_ALL"]--></a></li>
+			</ul>
+			</div>
+        </div>
+		<div class="lobby_groupbox lobby_lite">
+			<h3 id="lobby_groupbox_facts_link" class="lobby_link"><!--[pnml name="_LOBBY_GROUP_FACTS"]--></h3>
+			<div id="lobby_groupbox_facts">
+			<!--[pnml name="_LOBBY_GROUP_CREATOR"]-->: <!--[$facts.creator|userprofilelink]--><br />
+			<!--[if $category.title ne ""]-->
+				<!--[pnml name="_LOBBY_GROUP_CATEGORY"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="list" cat=$category.id]-->"><!--[$category.title]--></a><br />
+			<!--[/if]-->
+			<!--[pnml name="_LOBBY_GROUP_MEMBERS"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" do="members" id=$group.id]-->"><!--[$group.members]--></a><br />
+			<!--[if $group.moderated]-->
+				<!--[pnml name="_LOBBY_GROUP_MODERATEDGROUP"]-->
+			<!--[else]-->
+				<!--[pnml name="_LOBBY_GROUP_PUBLICGROUP"]-->
+			<!--[/if]--><br />
+			<!--[pnml name="_LOBBY_GROUP_LASTACTION"]-->: <!--[$group.last_action|pndate_format]--><br />
+			<!--[pnml name="_LOBBY_GROUP_ARTICLES"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" do="news" id=$group.id]-->"><!--[$group.articles]--></a><br />
+			<!--[pnml name="_LOBBY_GROUP_FORUMS"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" do="forums" id=$group.id]-->"><!--[$group.forums]--></a><br />
+			<!--[pnml name="_LOBBY_GROUP_TOPICS"]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[$group.topics]--></a><br />
+			<!--[pnml name="_LOBBY_GROUP_POSTINGS"]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[$group.postings]--></a><br />
+
+			<p><h3><!--[pnml name="_LOBBY_GROUP_RESPONSIBLE"]--></h3></p>
+				<!--[userlink uname=$group.uname uid=$group.uid]-->
+			<br style="clear:both;" />
+			<!--[if $moderators|@count gt 1]-->
+			<h3><!--[pnml name="_LOBBY_GROUP_MODERATORS"]--></h3>
+				<!--[foreach from=$moderators item="moderator"]-->
+					<!--[userlink uname=$moderator.uname uid=$moderator.uid]-->
+				<!--[/foreach]-->
+			<!--[/if]-->
+			<br style="clear:both;" /><br />
+			<!--[pnml name="_LOBBY_GROUP_TROUBLE_CONTACT"]--><br />
+			<!--[pnml name="_LOBBY_GROUP_MORE_TROUBLE_CONTACT"]-->
+
+		    </div>
+		</div>
+
+        <!--[if $facts.status gt 0]-->
+    		<div class="lobby_groupbox lobby_lite">
+    	   		<h3 id="lobby_groupbox_invitation_link" class="lobby_link"><!--[pnml name="_LOBBY_GROUP_INVITE"]--></h3>
+       			<div id="lobby_groupbox_invitation">
+    			<p>
+    				<form method="post" action="<!--[pnmodurl modname="lobby" type="user" func="group" id=$group.id do="invite" ]-->">
+    				<!--[pnml name="_LOBBY_INVITE_ENTER_TEXT"]--><br />
+        					<textarea name="invitetext" cols="12" rows="3"/></textarea><br />
+    				<!--[pnml name="_LOBBY_INVITE_ENTER_UNAME"]--><br />
+	   				<input name="uname" type="text" size="12" />&nbsp;<input type="submit" value="<!--[pnml name="_LOBBY_GO"]-->">
+    					<input type="hidden" name="id" value="<!--[$group.id]-->" />
+    				</form>
+    			</p>
+    			<p>
+    			<h4><!--[pnml name="_LOBBY_INVITE_TO_SITE"]--></h4>
+    			<a href="<!--[pnmodurl modname="Invitation"]-->"><!--[pnml name="_LOBBY_INVITE_NO_MEMBER"]--></a>
+    			</p>
+    			</div>
+    		</div>
+		<!--[/if]-->
+		<div class="lobby_groupbox lobby_lite">
+			<h3><!--[pnml name="_LOBBY_GROUP_HELP"]-->?</h3>
+			<!--[pnml name="_LOBBY_YOU_NEED_HELP"]--> <a href="<!--[pnmodurl modname="lobby" type="user" func="group" do="help" id=$group.id]-->"><!--[pnml name="_LOBBY_CLICK_HERE"]--></a>.
+		</div>
+
+    <!--[if $incFile ne '']-->
+        <!--[include file=$incFile]-->
+    <!--[/if]-->
+	</div>
+
+	<div id="lobby_content_right">
+	
+	<!--[pngetstatusmsg|pnvarprephtmldisplay]-->
+
+
+    <script type="text/javascript">
+    
+			<!--[if $facts.status eq 1]-->
+					$('lobby_memberstatus_quit').toggle();
+					var lobby_memberstatus_down = 0;
+					Event.observe('lobby_memberstatus', 'click', function(event) {
+					  	if (lobby_memberstatus_down == 0) {
+					  	  	$('lobby_memberstatus').removeClassName('lobby_link');
+					  		new Effect.BlindDown('lobby_memberstatus_quit', { delay: 0.5 });
+					  		lobby_memberstatus_down = 1;
+					  	}
+					});					
+			<!--[/if]-->
+
+    		<!--[if $groupOwner]-->
+					$('lobby_groupadmin_menu').toggle();
+					var lobby_groupadmin_down = 0;
+					Event.observe('lobby_adminbox_link', 'click', function(event) {
+					  	if (lobby_groupadmin_down == 0) {
+						  	new Effect.BlindDown('lobby_groupadmin_menu', { delay: 0.2 });
+						  	lobby_groupadmin_down = 1;
+						} else {
+						  	new Effect.BlindUp('lobby_groupadmin_menu', { delay: 0.2 });
+						  	lobby_groupadmin_down = 0;
+						}
+						
+					});
+			<!--[/if]-->
+
+            <!--[if $openNews ne 1]-->
+					$('lobby_groupbox_news').toggle();
+					var lobby_groupbox_news_down = 0;
+					Event.observe('lobby_groupbox_news_link', 'click', function(event) {
+					  	if (lobby_groupbox_news_down == 0) {
+						  	new Effect.BlindDown('lobby_groupbox_news', { delay: 0.2 });
+						  	lobby_groupbox_news_down = 1;
+						} else {
+						  	new Effect.BlindUp('lobby_groupbox_news', { delay: 0.2 });
+						  	lobby_groupbox_news_down = 0;
+						}
+					});
+            <!--[/if]-->
+            
+					$('lobby_groupbox_shortlinks').toggle();
+					var lobby_groupbox_shortlinks_down = 0;
+					Event.observe('lobby_groupbox_shortlinks_link', 'click', function(event) {
+					  	if (lobby_groupbox_shortlinks_down == 0) {
+						  	new Effect.BlindDown('lobby_groupbox_shortlinks', { delay: 0.2 });
+						  	lobby_groupbox_shortlinks_down = 1;
+						} else {
+						  	new Effect.BlindUp('lobby_groupbox_shortlinks', { delay: 0.2 });
+						  	lobby_groupbox_shortlinks_down = 0;
+						}
+					});
+
+					$('lobby_groupbox_facts').toggle();
+					var lobby_groupbox_facts_down = 0;
+					Event.observe('lobby_groupbox_facts_link', 'click', function(event) {
+					  	if (lobby_groupbox_facts_down == 0) {
+						  	new Effect.BlindDown('lobby_groupbox_facts', { delay: 0.2 });
+						  	lobby_groupbox_facts_down = 1;
+						} else {
+						  	new Effect.BlindUp('lobby_groupbox_facts', { delay: 0.2 });
+						  	lobby_groupbox_facts_down = 0;
+						}
+					});
+
+            <!--[if $facts.status gt 0]-->
+					$('lobby_groupbox_invitation').toggle();
+					var lobby_groupbox_invitation_down = 0;
+					Event.observe('lobby_groupbox_invitation_link', 'click', function(event) {
+					  	if (lobby_groupbox_invitation_down == 0) {
+						  	new Effect.BlindDown('lobby_groupbox_invitation', { delay: 0.2 });
+						  	lobby_groupbox_invitation_down = 1;
+						} else {
+						  	new Effect.BlindUp('lobby_groupbox_invitation', { delay: 0.2 });
+						  	lobby_groupbox_invitation_down = 0;
+						}
+					});
+			<!--[/if]-->
+
+                </script>

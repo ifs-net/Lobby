@@ -1,0 +1,26 @@
+				<div id="lobby_mod_menu">
+				<ul>
+						<li><img src="images/icons/extrasmall/removecomment.gif" />&nbsp;<a onclick="return confirm('<!--[pnml name="_LOBBY_REALLY_DELETE"]-->');" href="<!--[pnmodurl modname="lobby" func="group" do="forum" id=$group.id fid=$topic.fid topic=$topic.id action="moderate" moderation="delete" authid=$authid]-->"><!--[pnml name="_LOBBY_TOPIC_DELETE"]--></a></li>
+						<!--[if $topic.locked ne 1]--><li><img src="images/icons/extrasmall/locked.gif" />&nbsp;<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$topic.fid topic=$topic.id action="moderate" moderation="close" authid=$authid]-->"><!--[pnml name="_LOBBY_TOPIC_CLOSE"]--></a></li><!--[/if]-->
+						<!--[if $topic.locked eq 1]--><li><img src="images/icons/extrasmall/unlocked.gif" />&nbsp;<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$topic.fid topic=$topic.id action="moderate" moderation="reopen" authid=$authid]-->"><!--[pnml name="_LOBBY_TOPIC_REOPEN"]--></a></li><!--[/if]-->
+						<!--[if $topic.marked ne 1]--><li><img src="images/icons/extrasmall/flag.gif" />&nbsp;<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$topic.fid topic=$topic.id action="moderate" moderation="mark" authid=$authid]-->"><!--[pnml name="_LOBBY_TOPIC_MARK"]--></a></li><!--[/if]-->
+						<!--[if $topic.marked eq 1]--><li><img src="images/icons/extrasmall/flag.gif" />&nbsp;<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$topic.fid topic=$topic.id action="moderate" moderation="unmark" authid=$authid]-->"><!--[pnml name="_LOBBY_TOPIC_UNMARK"]--></a></li><!--[/if]-->
+						<li><img src="images/icons/extrasmall/insertcellcopy.gif" />&nbsp;<a class="lobby_link" onclick="new Effect.BlindDown('lobby_mod_move', { delay: 0.5 });"><!--[pnml name="_LOBBY_TOPIC_MOVE"]--></a></li>
+				</ul>
+				</div>
+				<div id="lobby_mod_move">
+					<span class="lobby_important"><!--[pnml name="_LOBBY_MOVE_TOPIC_TO"]--></span>
+					<form method="post" action="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$topic.fid topic=$topic.id action="moderate" moderation="move"]-->">
+						<!--[pnmodapifunc modname="lobby" type="forums" func="get" gid=$group.id assign="gf"]-->
+						<select name="to_forum">
+						<!--[foreach from=$gf item="f"]-->
+							<option value="<!--[$f.id]-->"><!--[$f.title|pnvarprepfordisplay]--></option>
+						<!--[/foreach]-->
+						</select>
+						<input type="hidden" name="authid" value="<!--[$authid]-->" />
+						<input type="submit" value="<!--[pnml name="_LOBBY_TOPIC_MOVE"]-->" />
+					</form>
+				</div>
+				<script type="text/javascript">
+					$('lobby_mod_move').toggle();
+				</script>

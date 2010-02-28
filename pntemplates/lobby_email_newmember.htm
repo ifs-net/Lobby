@@ -1,0 +1,10 @@
+<!--[pnml name="_LOBBY_EMAIL_NEW_MEMBER"]-->: <!--[$uname]-->
+
+<!--[if $moderated eq 1]-->
+<!--[pnml name="_LOBBY_EMAIL_PENDING_USER"]-->:
+
+<!--[pnml name="_LOBBY_EMAIL_PENDING_USERS"]-->:
+<!--[pnmodurl modname="lobby" func="group" id=$id do="pending" fqurl="true"]-->
+<!--[else]-->
+<!--[pnml name="_LOBBY_EMAIL_USER_ADDED"]-->:
+<!--[/if]-->

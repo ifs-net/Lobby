@@ -1,0 +1,59 @@
+<div class="lobby_groupcontent">
+
+<h1><!--[pnml name="_LOBBY_NEWS_ADDARTICLE"]--></h1>
+<!--[if $preview eq 1]-->
+<p>
+<fieldset>
+<legend><!--[pnml name="_LOBBY_NEWS_PREVIEW"]--></legend>
+<!--[include file="lobby_user_news_article.htm"]-->
+</fieldset>
+</p>
+<!--[/if]-->
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+<p>
+<!--[pnml name="_LOBBY_NEWS_EXPLANATION"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="title" text=_LOBBY_NEWS_TITLE]-->:<br />
+	<!--[pnformtextinput id="title" textMode="singleLine" maxLength="60" mandatory="1"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="text" text=_LOBBY_NEWS_TEXT]-->:<br />
+	<!--[pnformtextinput id="text" textMode="multiLine" mandatory="1"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="public_status" text=_LOBBY_NEWS_PUBLIC_STATUS]-->:<br />
+    <!--[pnformdropdownlist id="public_status" items=$public_status_items]--><br />
+</p>
+
+<!--[if $id gt 0]-->
+	<p>
+	    <!--[pnformcheckbox id="delete" checked="0"]-->
+	   	<!--[pnformlabel for="delete" text=_LOBBY_NEWS_DELETE_ARTICLE]-->
+	</p>
+<!--[/if]-->
+
+<p>
+   	<!--[pnformlabel for="date" text=_LOBBY_NEWS_DATE]-->:<br />
+	<!--[pnformdateinput id="date" mandatory="1" includeTime="1"]--><br />
+	<span class="lobby_important"><!--[pnml name="_LOBBY_NEWS_DATE_EXPLANATION"]--></span>
+</p>
+
+<p>
+    <!--[pnformcheckbox id="preview" checked="0"]-->
+   	<!--[pnformlabel for="preview" text=_LOBBY_NEWS_PREVIEW_ARTICLE]-->
+</p>
+
+<div>
+<!--[pnformbutton commandName="update" text="_LOBBY_NEWS_STORE_UPDATE"]-->
+</div>
+
+<!--[/pnform]-->
+
+</div>

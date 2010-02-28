@@ -1,0 +1,52 @@
+<!--[include file="lobby_admin_header.htm"]-->
+
+<p>
+<h1><!--[pnml name="_LOBBY_PENDING_GROUPS"]--></h1>
+</p>
+<table class="lobby_table">
+<!--[if $pending|@count gt 0]-->
+<tr>
+	<th>
+		<!--[pnml name="_LOBBY_GROUP_NAME"]-->
+	</th>
+	<th>
+		<!--[pnml name="_LOBBY_GROUP_AUTHOR"]-->
+	</th>
+	<th>
+		<!--[pnml name="_LOBBY_GROUP_ DATE"]-->
+	</th>
+	<th>
+		<!--[pnml name="_LOBBY_GROUP_CATEGORY"]-->
+	</th>
+	<th>
+		<!--[pnml name="_LOBBY_ACTION"]-->
+	</th>
+</tr>
+<!--[/if]-->
+<!--[foreach from=$pending item="group"]-->
+	<tr>
+		<td>
+			<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[$group.title]--></a>
+		</td>
+		<td>
+			<!--[pnusergetvar name="uname" uid=$group.uid assign="uname"]-->
+			<!--[$uname|userprofilelink]-->
+		</td>
+		<td>
+			<!--[$group.date|pndate_format]-->
+		</td>
+		<td>
+			<!--[pnmodapifunc modname="lobby" type="categories" func="get" id=$group.category assign="category"]-->
+			<!--[$category.title]-->
+		</td>
+		<td>
+			<a href="<!--[pnmodurl modname="lobby" type="admin" func="pending" action="accept" id=$group.id authid=$authid]-->"><!--[pnml name="_LOBBY_ACCEPT"]--></a>, 
+			<a href="<!--[pnmodurl modname="lobby" type="admin" func="pending" action="delete" id=$group.id authid=$authid]-->"><!--[pnml name="_LOBBY_DELETE"]--></a>
+		</td>
+	</tr>
+<!--[foreachelse]-->
+	<tr><td><!--[pnml name="_LOBBY_PENDING_NO_PENDING"]--></td></tr>
+<!--[/foreach]-->
+</table>
+
+<!--[include file="lobby_admin_footer.htm"]-->

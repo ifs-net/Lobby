@@ -1,0 +1,21 @@
+<div class="lobby_groupcontent">
+<h1><!--[pnml name="_LOBBY_QUIT_MEMBERSHIP"]-->: <!--[$group.title]--></h1>
+
+<p>
+<img src="images/icons/large/button_cancel.gif" style="float:right;" /> 
+<!--[pnml name="_LOBBY_QUIT_MEMBERSHIP_TEXT"]-->
+</p>
+
+<form method="post" action="<!--[pnmodurl modname="lobby" type="user" func="group" id=$group.id do="quit"]-->">
+<input type="hidden" name="confirm" value="1" />
+<input type="hidden" name="authid" value="<!--[$authid]-->" />
+<p>
+<!--[pnml name="_LOBBY_MEMBERSHIP_QUIT_REASON"]-->:<br />
+<textarea rows="5" cols="40" name="lobby_quit_text"></textarea>
+</p>
+<p>
+<input type="submit" value="<!--[pnml name="_LOBBY_QUIT_MEMBERSHIP_LINK"]-->" />
+</p>
+</form>
+
+</div>

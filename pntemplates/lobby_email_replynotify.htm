@@ -1,0 +1,11 @@
+<!--[pnml name="_LOBBY_DEAR"]--> <!--[$uname]-->,
+
+<!--[pnml name="_LOBBY_TO_TOPIC_OF"]--> "<!--[$topicuname]-->" <!--[pnml name="_LOBBY_WAS_REPLY_POSTED"]-->:
+
+<!--[$posting.title]--> (<!--[pnml name="_LOBBY_POSTER"]-->: <!--[$posteruname]-->)
+=======================================
+<!--[$posting.text]-->
+
+
+<!--[pnmodurl modname="lobby" func="group" id=$topic.gid do="forum" fid=$topic.fid topic=$topic.id lobbypager=$lobbypager fqurl="true"]-->#<!--[$posting.id]-->
+

@@ -1,0 +1,14 @@
+<h3><!--[pnml name="_LOBBY_GROUP_MEMBERSHIPS" username=$uname]-->:</h3>
+
+<ul>
+<!--[foreach from=$groups item="group"]-->
+	<li>
+		<a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$group.id]-->"><!--[$group.title]--></a>
+		<!--[if $group.owner eq 1]-->
+			<i>(<!--[pnml name="_LOBBY_IS_OWNER" username=$uname]-->)</i>
+		<!--[elseif $group.moderator eq 1]-->
+			<i>(<!--[pnml name="_LOBBY_IS_MODERATOR" username=$uname]-->)</i>
+		<!--[/if]-->
+	</li>
+<!--[/foreach]-->
+</ul>

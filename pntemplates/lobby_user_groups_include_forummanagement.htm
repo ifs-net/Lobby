@@ -1,0 +1,89 @@
+<div class="lobby_groupcontent">
+
+<h1><!--[pnml name="_LOBBY_FORUM_MANAGEMENT"]--></h1>
+
+<p>
+<!--[pnml name="_LOBBY_FORUM_MANAGEMENT_EXPLANATION"]-->
+</p>
+
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+<h3><!--[pnml name="_LOBBY_FORUM_EXISTING_FORUMS"]--></h3>
+
+<p>
+<!--[pnml name="_LOBBY_FORUM_CLICK_TO_EDIT"]-->
+</p>
+
+<p>
+<!--[pnml name="_LOBBY_FORUM_SYNC_HINT"]-->
+</p>
+
+<table class="lobby_table">
+	<tr>
+		<th><!--[pnml name="_LOBBY_FORUM_POS"]--></th>
+		<th><!--[pnml name="_LOBBY_FORUM_TITLE"]--></th>
+		<th><!--[pnml name="_LOBBY_FORUM_PERMISSIONS"]--></th>
+		<th><!--[pnml name="_LOBBY_FORUM_ACTION"]--></th>
+	</tr>
+<!--[foreach from=$forums item="forum"]-->
+	<tr style="background-color: #<!--[cycle values="eee,ddd"]-->">
+		<td style="text-align: center;">
+			<!--[if $forum.previous gt 0]-->
+				<a href="<!--[pnmodurl modname="lobby" func="group" id=$forum.gid do="forummanagement" switch="1" forum1=$forum.id forum2=$forum.previous]-->"><img src="images/icons/extrasmall/1uparrow.gif" alt="<!--[pnml name="_LOBBY_MOVE_UP"]-->" title="<!--[pnml name="_LOBBY_MOVE_UP"]-->" /></a>
+			<!--[/if]-->
+			<!--[if $forum.next gt 0]-->
+			<a href="<!--[pnmodurl modname="lobby" func="group" id=$forum.gid do="forummanagement" switch="1" forum1=$forum.id forum2=$forum.next]-->"><img src="images/icons/extrasmall/1downarrow.gif" alt="<!--[pnml name="_LOBBY_MOVE_DOWN"]-->" title="<!--[pnml name="_LOBBY_MOVE_DOWN"]-->" /></a>
+			<!--[/if]-->
+		</td>
+		<td><!--[$forum.title|pnvarprepfordisplay]--></td>
+		<td>
+			<!--[if $forum.public_status eq 2]-->
+				<!--[pnml name="_LOBBY_STATUS_PRIVATE"]-->
+			<!--[elseif $forum.public_status eq 1]-->
+				<!--[pnml name="_LOBBY_STATUS_MEMBERS"]-->
+			<!--[else]-->
+				<!--[pnml name="_LOBBY_STATUS_PUBLIC"]-->
+			<!--[/if]-->
+		</td>
+		<td><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forummanagement" fid=$forum.id]-->"><!--[pnml name="_LOBBY_EDIT"]--></a>,
+		<a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$group.id do="forummanagement" fid=$forum.id sync="1"]-->"><!--[pnml name="_LOBBY_SYNC_FORUM"]--></a></td>
+	</tr>
+<!--[foreachelse]-->
+	<li><!--[pnml name="_LOBBY_FORUM_NOFORUMS"]--></li>
+<!--[/foreach]-->
+</table>
+
+<h3><!--[pnml name="_LOBBY_FORUM_ADD_NEW_FORUM"]--></h3>
+
+
+<p>
+	<!--[pnformlabel for="title" text=_LOBBY_FORUM_TITLE]-->:<br />
+	<!--[pnformtextinput id="title" textMode="singleLine" maxLength="60" mandatory="1"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="description" text=_LOBBY_FORUM_DESCRIPTION]-->:<br />
+	<!--[pnformtextinput id="description" textMode="multiLine" maxLength="255" mandatory="0"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="public_status" text=_LOBBY_FORUM_PUBLIC_STATUS]-->:<br />
+    <!--[pnformdropdownlist id="public_status" items=$public_status_items]--><br />
+    <!--[pnml name="_LOBBY_FORUM_WRITABLE_HINT"]-->
+</p>
+
+<!--[if $id gt 0]-->
+	<p>
+	    <!--[pnformcheckbox id="delete" checked="0"]-->
+	   	<!--[pnformlabel for="delete" text=_LOBBY_FORUM_DELETE]-->
+	</p>
+<!--[/if]-->
+
+<p>
+<!--[pnformbutton commandName="update" text="_LOBBY_FORUM_STORE_UPDATE"]-->
+</p>
+<!--[/pnform]-->
+
+</div>

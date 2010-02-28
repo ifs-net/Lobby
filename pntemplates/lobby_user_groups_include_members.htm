@@ -1,0 +1,18 @@
+
+		<div class="lobby_groupbox" >
+			<p>
+			<h3><!--[pnml name="_LOBBY_GROUP_MEMBERS"]--></h3>
+			</p>
+			<!--[foreach from=$members item="member"]-->
+				<!--[userlink uid=$member.uid uname=$member.uname]-->
+			<!--[foreachelse]-->
+				<div><!--[pnml name="_LOBBY_GROUP_NOMEMBERS"]--></li>
+			<!--[/foreach]-->
+		<br style="clear:both;" />
+
+
+		</div>
+
+		<div class="lobby_pager">
+			<!--[pager show="page" rowcount=$facts.members limit=$membersperpage posvar=lobbypager shift=1]-->
+		</div>

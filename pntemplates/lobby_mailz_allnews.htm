@@ -1,0 +1,13 @@
+<ul>
+<!--[foreach from=$allNews item="news"]-->
+	<h4>
+    <!--[$news.title|pnvarprepfordisplay]-->
+    </h4>
+    <p>
+    <!--[$news.date|date]-->, <!--[pnml name="_LOBBY_FROM_GROUP"]--> <a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$news.gid]-->"><!--[$news.group_title|pnvarprepfordisplay]--></a>.<br />
+    <i><a href="<!--[pnmodurl modname="lobby" func="group" id=$news.gid do="news" story=$news.id]-->">...<!--[pnml name="_LOBBY_READ_ARTICLE"]--></a></i>
+    </p>
+<!--[foreachelse]-->
+	<li><!--[pnml name="_LOBBY_NO_NEW_ARTICLES"]--></li>
+<!--[/foreach]-->
+</ul>

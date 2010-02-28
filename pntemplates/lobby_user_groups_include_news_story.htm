@@ -1,0 +1,41 @@
+<div class="lobby_groupcontent">
+<div class="lobby_breadcrumb">
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[$group.title]--></a> &#187; 
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news"]-->"><!--[pnml name="_LOBBY_NEWS"]--></a> &#187; 
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news" story=$id]-->"><!--[$title]--></a>
+</div>
+
+	<p>
+		<img src="images/icons/extrasmall/list.gif" />
+		<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news"]-->"><!--[pnml name="_LOBBY_NEWS_INDEX"]--></a>
+
+<!--[if $title eq '' and $text eq '' and $id eq '']-->
+	</p>
+	<div class="pn-errormsg"><!--[pnml name="_LOBBY_NEWS_NOAUTH_NOCONTENT"]--></div>
+<!--[else]-->
+
+	<!--[if $groupOwner]-->
+		<img src="images/icons/extrasmall/xedit.gif" />
+		<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="article" story=$id]-->"><!--[pnml name="_LOBBY_NEWS_EDIT"]--></a>
+		<!--[if $sent ne 1]-->
+			<img src="images/icons/extrasmall/mail_generic.gif" />
+			<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news" story=$id send="1"]-->"><!--[pnml name="_LOBBY_NEWS_SEND_TO_GROUP"]--></a>
+		<!--[/if]-->
+	<!--[/if]-->
+	</p>
+	
+	<!--[if $infuture eq 1]-->
+		<div class="pn-imformationmsg"><!--[pnml name="_LOBBY_NEWS_INFUTURE"]--></div>
+	<!--[/if]-->
+	
+	<!--[include file="lobby_user_news_article.htm"]-->
+	
+	<!--[if $infuture ne 1]-->
+		<!--[* the next code is to display any hooks (e.g. comments, ratings) *]-->
+		<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news" story=$id assign="returnurl"]-->
+		<!--[pnmodcallhooks hookobject="item" hookaction="display" hookid=$id module="lobby" returnurl=$returnurl owneruid=$uid]-->
+	<!--[/if]-->
+
+<!--[/if]-->
+
+</div>

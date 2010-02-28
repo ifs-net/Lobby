@@ -1,0 +1,50 @@
+<div class="lobby_breadcrumb">
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[$group.title]--></a> &#187; 
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[pnml name="_LOBBY_FORUMS"]--></a> &#187; 
+<!--[if $mode eq "latesttopics"]-->
+	<!--[pnml name="_LOBBY_LATEST_TOPICS"]-->
+<!--[else]-->
+	<!--[pnml name="_LOBBY_LATEST_POSTS"]-->
+<!--[/if]-->
+</div>
+
+		<p>
+		<h2>
+			<!--[if $mode eq "latesttopics"]-->
+				<!--[pnml name="_LOBBY_LATEST_TOPICS"]-->
+			<!--[else]-->
+				<!--[pnml name="_LOBBY_LATEST_POSTS"]-->
+			<!--[/if]-->
+		</h2>
+		</p>
+		<p>
+		...<!--[pnml name="_LOBBY_SINCE_DATE"]-->: <!--[$date]-->.
+		<form method="post" action="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action=$mode]-->">
+			<!--[if $mode eq "latesttopics"]-->
+				<!--[pnml name="_LOBBY_LATEST_TOPICS"]-->
+			<!--[else]-->
+				<!--[pnml name="_LOBBY_LATEST_POSTS"]-->
+			<!--[/if]-->
+			<!--[pnml name="_LOBBY_SINCE"]-->
+			<input type="text" value="<!--[$hours]-->" name="hours" id="hours" maxlength="5" size="2" /> <!--[pnml name="_LOBBY_HOURS"]-->
+			<input type="submit" value="<!--[pnml name="_LOBBY_TOPICS_SHOW"]-->" />
+		</form>
+		</p>
+
+		<!--[if $lastvisit_encoded ne '']-->
+		<p>
+			<!--[if $mode eq "latesttopics"]-->
+			<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latesttopics" date=$lastvisit_encoded]-->"><!--[pnml name="_LOBBY_FORUM_TOPICS_LAST_VISIT"]-->: <!--[$lastvisit|date]--></a> (<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latesttopics" hours="1" reset="1"]-->"><!--[pnml name="_LOBBY_RESET_LAST_VISIT"]--></a>)
+			<!--[else]-->
+			<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latestposts" date=$lastvisit_encoded]-->"><!--[pnml name="_LOBBY_FORUM_POSTINGS_LAST_VISIT"]-->: <!--[$lastvisit|date]--></a> (<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums" action="latesttopics" hours="1" reset="1"]-->"><!--[pnml name="_LOBBY_RESET_LAST_VISIT"]--></a>)
+			<!--[/if]-->
+		</p>
+		<!--[/if]-->
+
+		<!--[pnajaxheader prototype="1"]-->
+
+			<!--[include file="lobby_user_groups_include_forum_topics_inc.htm"]-->
+
+		<div class="lobby_pager">
+			<!--[pager show="page" rowcount=$topics_count limit=$topicsperpage posvar=lobbypager shift=1]-->
+		</div>

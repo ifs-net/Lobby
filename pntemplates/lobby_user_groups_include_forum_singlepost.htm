@@ -1,0 +1,35 @@
+<div id="<!--[$post.id]-->" class="lobby_forum_post">
+<div class="lobby_forum_infobox lobby_lite">
+	<p>
+	<a href="#lobby_top"><img src="images/icons/extrasmall/1uparrow.gif" style="align: right;" alt="<!--[pnml name="_LOBBY_GO_TO_TOP"]-->" title="<!--[pnml name="_LOBBY_GO_TO_TOP"]-->" /></a>
+	<span class="lobby_important"><!--[pnml name="_LOBBY_FORUM_POSTING_INFO"]--></span><br />
+	<!--[pnml name="_LOBBY_DATE"]-->: <!--[$post.date|date]--><br />
+	<!--[pnml name="_LOBBY_AUTHOR"]-->: <!--[$post.uname|userprofilelink]--><br />
+	<!--[userlink uname=$post.uname uid=$post.uid float='left' backgroundcolor='#ddd']--><br style="clear:both;"/>
+
+<!--[if $memberStatus gt 0 or ($forum.public_status lt 2 and $loggedin eq 1) ]-->
+	<!--[if $mode ne "posts" or $topic.locked ne 1]-->
+	<a href="#<!--[$post.id]-->" class="lobby_link" onclick="javascript:lobby_addQuote('<!--[$post.uname]-->','<!--[pnml name="_LOBBY_MARK_QUOTE"]-->','<!--[pnml name="_LOBBY_MARK_QUOTE_DONE"]-->');" ><img src="images/icons/extrasmall/mail_reply.gif" alt="<!--[pnml name="_LOBBY_QUOTE"]-->" title="<!--[pnml name="_LOBBY_QUOTE"]-->" /> <!--[pnml name="_LOBBY_QUOTE"]--></a>
+	<!--[/if]-->
+<!--[/if]-->
+	</p>
+</div>
+	<h3>
+		<!--[$post.title|pnvarprepfordisplay]-->
+	</h3>
+	<p>
+		<div id="lobby_post_content_<!--[$post.id]-->">
+		<!--[$post.text|pnvarprepfordisplay|nl2br|pnmodcallhooks]-->
+		</div>
+		<br />
+		<br />
+	</p>
+	<!--[if $moderator eq 1 and $post.id != $topic.id]-->
+		<!--[pnml name="_LOBBY_MODERATOR_ACTIONS"]-->: 
+		[<a onclick="return confirm('<!--[pnml name="_LOBBY_REALLY_DELETE"]-->');" href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$topic.fid topic=$topic.id action="moderate" moderation="deleteposting" pid=$post.id authid=$authid]-->"><!--[pnml name="_LOBBY_MODERATOR_DELETE_POSTING"]--></a>]
+	<!--[/if]-->
+	<!--[if $moderator eq 1 or $post.uid eq $viewer_uid]-->
+		[<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$topic.fid topic=$topic.id action="edit" pid=$post.id]-->"><!--[pnml name="_LOBBY_MODERATOR_EDIT_POSTING"]--></a>]
+	<!--[/if]-->
+<br style="clear:both;" />
+</div>

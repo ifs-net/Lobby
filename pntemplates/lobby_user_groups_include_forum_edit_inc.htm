@@ -1,0 +1,102 @@
+<p>
+<h2 id="lobby_edit">
+<img src="images/icons/large/easymoblog.gif" class="lobby_smallTitleIcon"/>
+<!--[if $editmode eq 1]-->
+	<!--[pnml name="_LOBBY_MODERATOR_EDIT_POSTING"]-->
+<!--[elseif $mode eq "posts"]-->
+	<!--[pnml name="_LOBBY_NEW_REPLY"]-->
+<!--[else]-->
+	<!--[pnml name="_LOBBY_NEW_TOPIC"]-->
+<!--[/if]-->
+</h2>
+</p>
+	
+<!--[if $memberStatus gt 0 or ($forum.public_status lt 2 and $loggedin eq 1)]-->
+	<!--[if $mode ne "posts" or $topic.locked ne 1]-->
+		<div id="lobby_replyarea">
+		<!--[pnform]-->
+		<!--[pnformvalidationsummary]-->
+		
+		<p>
+		<!--[if $mode eq "posts"]-->
+			<!--[pnml name="_LOBBY_FORUM_REPLY_EXPLANATION"]-->
+		<!--[else]-->
+			<!--[pnml name="_LOBBY_FORUM_TOPIC_EXPLANATION"]-->
+		<!--[/if]-->
+		</p>
+
+		<!--[if $editmode eq 1]-->
+			<div class="pn-informationmsg">
+				<!--[pnml name="_LOBBY_FORUM_EDIT_HINT"]-->
+			</div>
+		<!--[/if]-->
+		
+		<p class="lobby_important">
+			<!--[pnformlabel for="title" text=_LOBBY_POSTING_TITLE]-->:<br />
+			<!--[pnformtextinput id="title" textMode="singleLine" maxLength="100" mandatory="1"]-->
+		</p>
+		
+		<p class="lobby_important">
+			<!--[pnformlabel for="text" text=_LOBBY_POSTING_CONTENT]-->:<br />
+			<!--[pnformtextinput id="text" cols="70" rows="15" textMode="multiLine" mandatory="1"]-->
+		</p>
+			
+		    <!--[plainbbcode textfieldid="text"]-->
+			<!--[bbsmile textfieldid="text"]-->
+
+<!--[if $editmode ne 1]-->
+		<p>
+		    <!--[pnformcheckbox id="preview" checked="0"]-->
+		   	<!--[pnformlabel for="preview" text=_LOBBY_FORUM_JUST_PREVIEW]-->
+		</p>
+
+		<p>
+		    <!--[pnformcheckbox id="subscribe" checked="0"]-->
+		   	<!--[pnformlabel for="subscribe" text=_LOBBY_FORUM_INSTANT_ABO]-->
+		</p>
+<!--[/if]-->
+
+		<p>
+		<!--[if $mode eq "posts"]-->
+			<!--[pnformbutton commandName="update" text="_LOBBY_FORUM_STORE_REPLY"]-->
+		<!--[else]-->
+			<!--[pnformbutton commandName="update" text="_LOBBY_FORUM_STORE"]-->
+		<!--[/if]-->
+		</p>
+		
+		<!--[/pnform]-->
+		</div>
+
+		<!--[*if $editmode ne 1 and $preview ne 1]-->
+			<script type="text/javascript">
+				function lobby_hideReplyArea() {
+					$('lobby_edit').addClassName('lobby_link');
+					$('lobby_replyarea').hide();
+					var lobby_replyarea_down = 0;
+					Event.observe('lobby_edit', 'click', function(event) {
+					  	if (lobby_replyarea_down == 0) {
+					  	  	$('lobby_edit').removeClassName('lobby_link');
+					  		new Effect.BlindDown('lobby_replyarea', { delay: 0.5 });
+					  		lobby_replyarea_down = 1;
+					  	}
+					});
+					Event.observe('lobby_edit_link', 'click', function(event) {
+					  	if (lobby_replyarea_down == 0) {
+					  	  	$('lobby_edit').removeClassName('lobby_link');
+					  		new Effect.BlindDown('lobby_replyarea', { delay: 0.5 });
+					  		lobby_replyarea_down = 1;
+					  	}
+					});
+					
+				}
+				lobby_hideReplyArea();
+			</script
+		<!--[/if*]-->
+
+	<!--[else]-->
+		<div class="pn-informationmsg"><!--[pnml name="_LOBBY_FORUM_TOPIC_LOCKED"]--></div>	
+	<!--[/if]-->
+
+<!--[else]-->
+	<div class="pn-informationmsg"><!--[pnml name="_LOBBY_FORUM_NO_POST_AUTH"]--></div>
+<!--[/if]-->

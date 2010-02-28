@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<rss version="2.0">
+ 
+  <channel>
+    <title><!--[$group.title]--></title>
+    <link><!--[pngetbaseurl]--><!--[pnmodurl modname="lobby" func="group" id=$group.id]--></link>
+    <description><!--[$group.description]--></description>
+    <copyright><!--[$author]--></copyright>
+   <pubDate><!--[$group.date]--></pubDate>
+ 
+<!--[foreach item="item" from=$articles]-->
+    <item>
+      <title><!--[$item.title]--></title>
+      <link><!--[pngetbaseurl]--><!--[pnmodurl modname="lobby" func="group" id=$group.id do="news" story=$item.id]--></link>
+      <pubDate><!--[$item.date]--> GMT</pubDate>
+    </item>
+<!--[/foreach]--> 
+
+  </channel>
+ 
+</rss>

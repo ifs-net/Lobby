@@ -1,0 +1,30 @@
+<div class="lobby_groupcontent">
+<div class="lobby_breadcrumb">
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id]-->"><!--[$group.title]--></a> &#187; 
+<a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news"]-->"><!--[pnml name="_LOBBY_NEWS"]--></a>
+</div>
+
+<h1><!--[pnml name="_LOBBY_GROUP_NEWS"]--></h1>
+
+<p>
+<!--[if $facts.status eq 0]-->
+	<div class="pn-informationmsg"><!--[pnml name="_LOBBY_NEWS_PUBLICSTATUS_TEXT"]--></div>
+<!--[/if]-->
+</p>
+
+<ul>
+<!--[foreach from=$articles item="article"]-->
+	<li><!--[$article.date|pndate_format]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="news" story=$article.id]-->"><!--[$article.title|pnvarprepfordisplay]--></a>
+	<!--[if $groupOwner]-->
+		[<a href="<!--[pnmodurl modname="lobby" func="group" do="article" id=$group.id story=$article.id]-->"><!--[pnml name="_LOBBY_NEWS_EDIT"]--></a>]
+	<!--[/if]-->
+	</li>
+<!--[foreachelse]-->
+	<li><!--[pnml name="_LOBBY_GROUP_NONEWS"]--></li>
+<!--[/foreach]-->
+</ul>
+</div>
+
+<div class="lobby_pager">
+	<!--[pager show="page" rowcount=$group.articles limit=$facts.newsperpage posvar=lobbypager shift=1]-->
+</div>

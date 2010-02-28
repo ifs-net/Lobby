@@ -1,0 +1,13 @@
+<!--[pnusergetvar name="uname" uid=$uid assign="uname"]-->
+
+<!--[userlink uname=$uname uid=$uid float="right"]-->
+<h2>
+	<!--[$title|pnvarprepfordisplay]-->
+</h2>
+<p>
+<!--[pnml name="_LOBBY_NEWS_WRITTENBY"]--> <!--[$uname|userprofilelink]-->, <!--[$date|pndate_format]-->
+</p>
+
+<p>
+<!--[$text|pnmodcallhooks]-->
+</p>

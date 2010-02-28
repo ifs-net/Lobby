@@ -1,0 +1,16 @@
+<!--[pnml name="_LOBBY_DEAR"]-->: <!--[$youruname]-->,
+
+<!--[pnml name="_LOBBY_GROUP_INVITATION_FOR"]-->: <!--[$group.title]-->
+
+<!--[pnml name="_LOBBY_GROUP_INVITATION_OF"]-->: <!--[$uname]-->
+
+<!--[if $text ne ""]-->
+<!--[pnml name="_LOBBY_GROUP_INVITATION_TEXT"]-->:
+<!--[$text]-->
+<!--[/if]-->
+
+<!--[pnml name="_LOBBY_GROUP_HOMEPAGE"]-->:
+<!--[pnmodurl modname="lobby" func="group" id=$id fqurl="true"]-->
+
+<!--[pnml name="_LOBBY_GROUP_JOINPAGE"]-->:
+<!--[pnmodurl modname="lobby" func="group" id=$id do="join" fqurl="true"]-->

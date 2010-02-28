@@ -1,0 +1,30 @@
+<div class="lobby_groupcontent">
+<h1><!--[pnml name="_LOBBY_GROUP_JOINGROUP"]--></h1>
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+	<p>
+<!--[if $group.moderated]-->
+	<div class="pn-informationmsg"><!--[pnml name="_LOBBY_GROUP_JOIN_MODERATED"]--></div>
+	</p>
+	<p>
+	<!--[pnformlabel for="text" text=_LOBBY_GROUP_JOIN_TEXT]-->:<br />
+	<!--[pnformtextinput rows="5" cols="40" id="text" textMode="multiLine" maxLength="255" mandatory="0"]-->
+<!--[else]-->
+	<!--[pnml name="_LOBBY_GROUP_JOIN_PUBLIC"]-->
+<!--[/if]-->
+</p>
+
+<div>
+<!--[if $group.moderated]-->
+	<!--[pnformbutton commandName="update" text="_LOBBY_GROUP_JOIN_REQUEST"]-->
+<!--[else]-->
+	<!--[pnformbutton commandName="update" text="_LOBBY_GROUP_JOIN_NOW"]-->
+<!--[/if]-->
+</div>
+
+<!--[/pnform]-->
+
+</div>
+
