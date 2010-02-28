@@ -1,0 +1,13 @@
+Ad inclusion:
+=============
+If you want a file be included below the menu on the left side
+in group view take the $do value from the URL to get the filename
+that will be automatically be included in the specified action:
+http://www.xyz.com/lobby/group/id/11/do/news/story/55
+File to be included: lobby_includes_news.htm
+For group index page use lobby_includes_index.htm
+
+Integration into pendingcontent module:
+=======================================
+URL: index.php?module=lobby&type=admin&func=pending
+SQL-Query (maybe you have to select another prefix!): select count(*) from zk_lobby_groups where zk_lobby_groups.moderated = '1' and zk_lobby_groups.accepted = '0

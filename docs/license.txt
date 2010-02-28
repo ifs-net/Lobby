@@ -1,0 +1,18 @@
+license for lobby module
+========================
+
+Lobby module is open source but distributed with the following proprietary license:
+
+- The modul is open source and built for zikula php framework
+- The module is copyrighted by florian.schiessl@ifs-net.de
+- You are allowed to use this module at any site "as 
+  it is", commercial or non commercial
+- You are mot allowed to re-use or distribute any parts of the source code
+- You are allowed to make minor template or style sheet changes.
+- Changing the source code is not allowed.
+- Removing or changing the copyright hint in the module output is not allowed.
+- Making the copyright message invisible or hardly visible is not allowed.
+- There is no warranty for the module's functions
+
+If you want to use the module without the restrictions above feel
+free to get a valid user license. Contact the module developer in this case.

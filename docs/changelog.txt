@@ -1,0 +1,28 @@
+1.2
+===
+- added bug: forum public status couldn't be modified in user
+  interface
+- removes various icons and added some ajax code in left side 
+  group menu to improve usability.
+- you can now add some advertisement - automatic includes will 
+  be done, see modules/lobby/docs/documentation.txt
+- integration code for pending content module added 
+  in modules/lobby/docs/documentation.txt
+- adding selector for group admins to decide how many topics 
+  should be shown at the group's index page
+- fixing bug: sort order for new groups on index page corrected
+
+1.1
+===
+- optimized group listing
+    + ordering
+    + filtering
+- fixed bug: pager (link to last reply in topic list view) works correctly now
+- fixed bug: improved rss news implementation for groups
+- fixed bug: added rss news implementation for new members of a group
+- added language definitions (eng)
+- fixed "facts" block: postings in group did not match real amount of postings
+
+1.0
+===
+- initial release
