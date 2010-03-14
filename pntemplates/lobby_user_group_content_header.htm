@@ -38,6 +38,7 @@
 						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="pending"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_PENDING"]--> (<!--[$facts.pending]-->)</a></li>
 						<br />
 						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="article"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_NEW_ARTICLE"]--></a></li>
+						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albummanagement"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_ALBUM_MANAGEMENT"]--></a></li>
 						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forummanagement"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_FORUM_MANAGEMENT"]--></a></li>
 						<li><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="sync"]-->"><!--[pnml name="_LOBBY_GROUP_ADMIN_SYNC"]--></a></li>
 					</ul>
@@ -65,6 +66,16 @@
 			<br style="clear:both;" />
 			</div>
 		</div>
+		<!--[if $latestpicture.cover.id gt 0]-->
+		<div class="lobby_groupbox lobby_lite">
+			<h3 id="lobby_groupbox_albumlinks_link" class="lobby_link"><!--[pnml name="_LOBBY_GROUP_ALBUMS"]--></h3>
+			<div id="lobby_groupbox_albumlinks">
+			    <!--[pnml name="_LOBBY_LATEST_PICTURE"]-->:<br />
+			    <!--[$latestpicture.cover.code_thumbnail]--><br />
+			    <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums"]-->"><!--[pnml name="_LOBBY_SHOW_ALL_ALBUMS"]--></a>
+			</div>
+        </div>
+        <!--[/if]-->
 		<div class="lobby_groupbox lobby_lite">
 			<h3 id="lobby_groupbox_shortlinks_link" class="lobby_link"><!--[pnml name="_LOBBY_GROUP_FORUM_SHORTLINKS"]--></h3>
 			<div id="lobby_groupbox_shortlinks">
@@ -100,6 +111,7 @@
 			<!--[/if]--><br />
 			<!--[pnml name="_LOBBY_GROUP_LASTACTION"]-->: <!--[$group.last_action|pndate_format]--><br />
 			<!--[pnml name="_LOBBY_GROUP_ARTICLES"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" do="news" id=$group.id]-->"><!--[$group.articles]--></a><br />
+			<!--[pnml name="_LOBBY_GROUP_ALBUMS"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" do="albums" id=$group.id]-->"><!--[$group.albums]--></a><br />
 			<!--[pnml name="_LOBBY_GROUP_FORUMS"]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" do="forums" id=$group.id]-->"><!--[$group.forums]--></a><br />
 			<!--[pnml name="_LOBBY_GROUP_TOPICS"]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[$group.topics]--></a><br />
 			<!--[pnml name="_LOBBY_GROUP_POSTINGS"]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[$group.postings]--></a><br />
@@ -198,6 +210,7 @@
 					});
             <!--[/if]-->
             
+            <!--[if $group.boxes_showforumlinks ne 1]-->
 					$('lobby_groupbox_shortlinks').toggle();
 					var lobby_groupbox_shortlinks_down = 0;
 					Event.observe('lobby_groupbox_shortlinks_link', 'click', function(event) {
@@ -209,6 +222,21 @@
 						  	lobby_groupbox_shortlinks_down = 0;
 						}
 					});
+            <!--[/if]-->
+
+            <!--[if $group.boxes_showalbums ne 1]-->
+					$('lobby_groupbox_albumlinks').toggle();
+					var lobby_groupbox_albumlinks_down = 0;
+					Event.observe('lobby_groupbox_albumlinks_link', 'click', function(event) {
+					  	if (lobby_groupbox_albumlinks_down == 0) {
+						  	new Effect.BlindDown('lobby_groupbox_albumlinks', { delay: 0.2 });
+						  	lobby_groupbox_albumlinks_down = 1;
+						} else {
+						  	new Effect.BlindUp('lobby_groupbox_albumlinks', { delay: 0.2 });
+						  	lobby_groupbox_albumlinks_down = 0;
+						}
+					});
+            <!--[/if]-->
 
 					$('lobby_groupbox_facts').toggle();
 					var lobby_groupbox_facts_down = 0;

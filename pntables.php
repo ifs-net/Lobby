@@ -37,6 +37,8 @@ function lobby_pntables()
     $table['lobby_forum_topic_subscriptions'] 	= $lobby."_forum_topic_subscriptions";
     $table['lobby_forum_posts']				 	= $lobby."_forum_posts";
     $table['lobby_forum_posts_text'] 			= $lobby."_forum_posts_text";
+    $table['lobby_albums']           			= $lobby."_albums";
+    $table['lobby_albums_pictures']    			= $lobby."_albums_pictures";
 
     // Columns for tables
     $table['lobby_groups_column'] = array (
@@ -57,7 +59,12 @@ function lobby_pntables()
     			'accepted'				=> 'accepted',
     			'moderated'				=> 'moderated',
     			'category'				=> 'category',
-    			'coordinates'			=> 'coordinates'
+    			'albums'                => 'albums',
+    			'albums_pictures'       => 'albums_pictures',
+    			'coordinates'			=> 'coordinates',
+    			'boxes_shownews'        => 'boxes_shownews',
+    			'boxes_showforumlinks'  => 'boxes_showforumlinks',
+    			'boxes_showalbums'      => 'boxes_showalbums'
     			);
     $table['lobby_groups_column_def'] = array (
     			'id'					=> "I AUTOINCREMENT PRIMARY",
@@ -77,7 +84,12 @@ function lobby_pntables()
     			'accepted'				=> "L NOTNULL DEFAULT 0",
     			'moderated'				=> "L NOTNULL DEFAULT 0",
     			'category'				=> "I NOTNULL DEFAULT 0",
-    			'coordinates'			=> "C(99) NOTNULL DEFAULT ''"
+    			'albums'				=> "I NOTNULL DEFAULT 0",
+    			'albums_pictures'		=> "I NOTNULL DEFAULT 0",
+    			'coordinates'			=> "C(99) NOTNULL DEFAULT ''",
+    			'boxes_shownews'        => "I(1) NOTNULL DEFAULT 1",
+    			'boxes_showforumlinks'  => "I(1) NOTNULL DEFAULT 1",
+    			'boxes_showalbums'      => "I(1) NOTNULL DEFAULT 1"
     			);
     $table['lobby_categories_column'] = array (
     			'id'					=> 'id',
@@ -292,6 +304,34 @@ function lobby_pntables()
     $table['lobby_forum_posts_text_column_def'] = array(
     			'id'					=> "I NOTNULL PRIMARY ",
     			'text'					=> "XL NOTNULL"
+    			);
+    $table['lobby_albums_column'] = array(
+			    'id'      				=> 'id',
+			    'gid'      				=> 'gid',
+			    'title'    				=> 'title',
+			    'description'  		    => 'description',
+			    'date'    				=> 'date',
+			    'public_status'			=> 'public_status'
+			    );
+    $table['lobby_albums_column_def'] = array(
+    			'id'					=> "I AUTOINCREMENT PRIMARY ",
+    			'gid'					=> "I NOTNULL DEFAULT 0",
+    			'title'					=> "C(125) NOTNULL DEFAULT ''",
+    			'description'			=> "XL NOTNULL",
+    			'date'       			=> "T NOTNULL",
+    			'public_status'			=> "L NOTNULL DEFAULT 0"
+    			);
+    $table['lobby_albums_pictures_column'] = array(
+			    'id'      				=> 'id',
+			    'aid'      				=> 'aid',
+			    'pid'    				=> 'pid',
+			    'date'                  => 'date'
+			    );
+    $table['lobby_albums_pictures_column_def'] = array(
+    			'id'					=> "I AUTOINCREMENT PRIMARY ",
+    			'aid'					=> "I NOTNULL DEFAULT 0",
+    			'pid'					=> "I NOTNULL DEFAULT 0",
+			    'date'                  => "T NOTNULL"
     			);
 	// Return table information
 	return $table;

@@ -25,6 +25,9 @@ function lobby_groupsync($id)
 	
   	// sync members
   	$group['members'] = (int)DBUtil::selectObjectCountByID('lobby_members',$id,'gid');
+
+  	// sync albums
+  	$group['albums'] = (int)DBUtil::selectObjectCountByID('lobby_albums',$id,'gid');
   	
   	// sync articles
   	$group['articles'] = (int)DBUtil::selectObjectCountByID('lobby_news',$id,'gid');

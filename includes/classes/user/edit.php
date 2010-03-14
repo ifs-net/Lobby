@@ -86,6 +86,14 @@ class lobby_user_editHandler
 			  	if (!$result) {
 				    return LogUtil::registerError(_LOBBY_DELETION_NEWS_FAILS);
 				}
+				// delete albums
+				$albums = pnModAPIFunc('lobby','albums','get',array('gid' => $id));
+				foreach ($albums as $album) {
+                    $result = pnModAPIFunc('lobby','albums','del',array('id' => $album['id']));
+                    if (!$result) {
+                        return false;
+                    }
+                }
 			  	// delete index page
 			  	$result = DBUtil::deleteObjectByID('lobby_pages',$id);
 			  	// delete members
@@ -132,6 +140,9 @@ class lobby_user_editHandler
 		    if ($this->group['id'] > 0) {
 				// update an existing group
 				$upd = $this->group;
+				$upd['boxes_shownews']  = $obj['boxes_shownews'];
+				$upd['boxes_showforumlinks']  = $obj['boxes_showforumlinks'];
+				$upd['boxes_showalbums']  = $obj['boxes_showalbums'];
 				$upd['coordinates']     = $obj['coordinates'];
 				$upd['description']     = $obj['description'];
 				$upd['moderated']       = $obj['moderated'];

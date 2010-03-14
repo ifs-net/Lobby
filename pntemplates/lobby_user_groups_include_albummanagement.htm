@@ -1,0 +1,80 @@
+<div class="lobby_groupcontent">
+
+<h1><!--[pnml name="_LOBBY_ALBUM_MANAGEMENT"]--></h1>
+
+<p>
+<!--[pnml name="_LOBBY_ALBUM_MANAGEMENT_EXPLANATION"]-->
+</p>
+
+
+<!--[pnform]-->
+<!--[pnformvalidationsummary]-->
+
+<h3><!--[pnml name="_LOBBY_FORUM_EXISTING_ALBUMS"]--></h3>
+
+<table class="lobby_table">
+	<tr>
+		<th><!--[pnml name="_LOBBY_ALBUM_DATE"]--></th>
+		<th><!--[pnml name="_LOBBY_ALBUM_TITLE"]--></th>
+		<th><!--[pnml name="_LOBBY_ALBUM_DESCRIPTION"]--></th>
+		<th><!--[pnml name="_LOBBY_ACTION"]--></th>
+	</tr>
+<!--[foreach from=$albums item="item"]-->
+	<tr style="background-color: #<!--[cycle values="eee,ddd"]-->">
+		<td style="text-align: center;">
+			 <!--[$item.date|truncate:11:'']-->
+		</td>
+		<td nowrap><!--[$item.title|pnvarprepfordisplay]--></td>
+		<td>
+			<!--[if $item.public_status eq 2]-->
+				<!--[pnml name="_LOBBY_STATUS_PRIVATE"]-->
+			<!--[elseif $item.public_status eq 1]-->
+				<!--[pnml name="_LOBBY_STATUS_MEMBERS"]-->
+			<!--[else]-->
+				<!--[pnml name="_LOBBY_STATUS_PUBLIC"]-->
+			<!--[/if]-->
+		</td>
+		<td nowrap>
+            <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albummanagement" aid=$item.id]-->"><!--[pnml name="_LOBBY_EDIT"]--></a><br />
+            <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums" aid=$item.id]-->"><!--[pnml name="_LOBBY_VISIT_ALBUM"]--></a>
+	</tr>
+<!--[foreachelse]-->
+	<li><!--[pnml name="_LOBBY_NO_ALBUMS"]--></li>
+<!--[/foreach]-->
+</table>
+
+<h3><!--[pnml name="_LOBBY_ADD_NEW_ALBUM"]--></h3>
+
+<p>
+	<!--[pnformlabel for="date" text=_LOBBY_ALBUM_DATE]-->:<br />
+	<!--[pnformdateinput id="date" textMode="singleLine" mandatory="1"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="title" text=_LOBBY_ALBUM_TITLE]-->:<br />
+	<!--[pnformtextinput id="title" textMode="singleLine" maxLength="60" mandatory="1"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="description" text=_LOBBY_ALBUM_DESCRIPTION]-->:<br />
+	<!--[pnformtextinput id="description" textMode="multiLine" maxLength="255" mandatory="0"]-->
+</p>
+
+<p>
+	<!--[pnformlabel for="public_status" text=_LOBBY_ALBUM_PUBLIC_STATUS]-->:<br />
+    <!--[pnformdropdownlist id="public_status" items=$public_status_items]--><br />
+</p>
+
+<!--[if $id gt 0]-->
+	<p>
+	    <!--[pnformcheckbox id="delete" checked="0"]-->
+	   	<!--[pnformlabel for="delete" text=_LOBBY_ALBUM_DELETE]-->
+	</p>
+<!--[/if]-->
+
+<p>
+<!--[pnformbutton commandName="update" text="_LOBBY_ALBUM_STORE_UPDATE"]-->
+</p>
+<!--[/pnform]-->
+
+</div>

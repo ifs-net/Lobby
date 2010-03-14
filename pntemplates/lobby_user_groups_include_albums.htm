@@ -1,0 +1,77 @@
+<div class="lobby_groupcontent">
+
+<!--[*pndebug output="html"*]-->
+
+<!--[pnformvalidationsummary]-->
+<h1><!--[pnml name="_LOBBY_GROUP_ALBUMS"]-->
+<!--[if $id gt 0]-->-
+    <!--[$title]--></h1>
+    <p>
+        <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums"]-->"><!--[pnml name="_LOBBY_ALBUM_OVERVIEW"]--></a>
+    </p>
+    <p><!--[$description]--></p>
+    <p>
+        <!--[if $editmode eq 1]-->
+            <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums" aid=$id editmode="0"]-->"><!--[pnml name="_LOBBY_ALBUM_ADDMODE_OFF"]--></a>
+            </p>
+            <p>
+            <!--[pnml name="_LOBBY_EDITMODE_ALBUM_HINT"]-->
+            <div id="lobby_album_editwindow">
+            <!--[foreach from=$ownPictures item="item"]-->
+                <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums" aid=$id editmode="1" pid=$item.id]-->"><img class="lobby_album_thumbpic" src="<!--[$item.filename_absolute]-->.thumb.jpg" /></a>
+            <!--[foreachelse]-->
+                <a href="<!--[pnmodurl modname="UserPictures" func="managepicture" template_id="0"]-->"><!--[pnml name="_LOBBY_ALBUMS_UPLOAD_PICTURES_FIRST"]--></a>
+            <!--[/foreach]-->
+            </div>
+        <!--[else]-->
+            <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums" aid=$id editmode="1"]-->"><!--[pnml name="_LOBBY_ALBUM_ADDMODE_ON"]--></a>
+        <!--[/if]-->
+    </p>
+    
+    <h3><!--[pnml name="_LOBBY_UPLOADED_PICTURES"]--></h3>
+    <p>
+        <!--[pnml name="_LOBBY_CLICK_AND_USE_CURSOR_FOR_SLIDESHOW"]-->
+        <!--[if $facts.status gt 0]-->
+        <br />
+        <a href="#deletelist"id="lobby_show_picture_delete_links"><!--[pnml name="_LOBBY_SHOW_DELETE_LINKS"]--></a>
+        <!--[/if]-->
+    </p>
+
+    <!--[if $facts.status gt 0]-->
+    <script type="text/javascript">
+    
+		Event.observe('lobby_show_picture_delete_links', 'click', function(event) {
+		    $('lobby_show_picture_delete_links').hide();
+        <!--[foreach from=$pictures item="item"]-->
+      	  	$('lobby_album_delete<!--[$item.id]-->').removeClassName('pn-hide');
+        <!--[/foreach]-->
+        });
+    </script>
+    
+    <a name="deletelist"></a>
+    <!--[/if]-->
+    
+    <!--[foreach from=$pictures item="item"]-->
+        <!--[$item.code_thumbnail]-->
+        <!--[if $facts.status gt 0]-->
+        <div class="pn-hide" id="lobby_album_delete<!--[$item.id]-->">
+            <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums" aid=$id pid=$item.id delete="1"]-->"><!--[pnml name="_LOBBY_DELETE_PICTURE_ABOVE"]--></a>
+        </div>
+        <!--[/if]-->
+    <!--[foreachelse]-->
+        <!--[pnml name="_LOBBY_NO_PICTURE_AVAILABLE_OR_VISIBLE"]-->
+    <!--[/foreach]-->
+    
+<!--[else]-->
+    </h1>
+    <!--[foreach from=$albums item="item"]-->
+        <div>
+            <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="albums" aid=$item.id]-->">            <img class="lobby_album_thumbpic" src="<!--[$item.cover.filename_absolute]-->.thumb.jpg" /><br /><!--[$item.title]--></a> (<!--[$item.date|pndate_format]-->)
+        </div>
+    <!--[foreachelse]-->
+        <!--[pnml name="_LOBBY_NO_ALBUMS_AVAILABLE_OR_VISIBLE"]-->
+    <!--[/foreach]-->
+<!--[/if]-->
+
+
+</div>

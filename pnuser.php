@@ -269,10 +269,24 @@ function lobby_user_group()
 	$render->assign('articles_short', $articles_short);
 	// If latest article > last visit the news - box should be opened by default.
 	$first_article = $articles_short[0];
+	$openNews = 0;
 	if ($first_article['id'] > 0) {
         if ((int)strtotime($first_article['date']) > $lastvisit) {
-            $render->assign('openNews', '1');
+            $openNews = 1;
         }
+    }
+    if ($group['boxes_shownews'] == 1) {
+        $openNews = 1;
+    }
+    $render->assign('openNews', $openNews);
+    
+    // get albums
+    if ($group['albums'] > 0) {
+        // get all and take care of viewers permissions
+        $albums = pnModAPIFunc('lobby','albums','get',array('gid' => $group['id']));
+        $latestpicture = $albums[0];
+        $render->assign('latestpicture',$latestpicture);
+        pnModLangLoad('UserPictures');
     }
 
 	// Assign facts
@@ -316,6 +330,15 @@ function lobby_user_group()
         $render->assign('incFile', $incFile);
     }
 	switch ($do) {
+	  	case 'albummanagement':
+	  		// Only the group owner or sysadmin should be allowed to view this site
+		    if (!$groupOwner) {
+			  	LogUtil::registerError(_LOBBY_ONLY_ADMIN_ACCESS);
+			  	return pnRedirect(pnModURL('lobby','user','group',array('id' => $id)));
+			}
+	  		$template = 'albummanagement';
+		    Loader::includeOnce('modules/lobby/includes/classes/user/albummanagement.php');
+	  		break;
 	  	case 'forummanagement':
 	  		// Only the group owner or sysadmin should be allowed to view this site
 		    if (!$groupOwner) {
@@ -446,6 +469,10 @@ function lobby_user_group()
 		  	}
 		    Loader::includeOnce('modules/lobby/includes/classes/user/dummy.php');
 	  		break;
+	  	case 'albums':
+			$template = 'albums';
+		    Loader::includeOnce('modules/lobby/includes/classes/user/albums.php');
+		    break;
 	  	case 'article':
 	  		// Only the group owner or sysadmin should be allowed to view this site
 		    if (!$groupOwner) {
