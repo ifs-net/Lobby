@@ -24,9 +24,9 @@ class lobby_user_pluginHandler
       	if ($aid > 0) {
       	  	// load forum
       	  	$album = pnModAPIFunc('lobby','albums','get',array('id' => $aid, 'gid' => $gid));
-      	  	if ($album['gid'] == $album['gid']) {
-				$render->assign($album);
-				$this->album = $album;
+      	  	$this->album = $album[0];
+      	  	if ($this->album['gid'] == $this->gid) {
+				$render->assign($this->album);
 			}
 		}
 		$public_status_items = array (
@@ -53,7 +53,7 @@ class lobby_user_pluginHandler
 		      	    // remove album
 		      	    $result = pnModAPIFunc('lobby','albums','del',$this->album);
 		      	    if ($result) {
-                        LogUtil::registerStatus('_LOBBY_ALBUM_DELETED');
+                        LogUtil::registerStatus(_LOBBY_ALBUM_DELETED);
                     } else {
                         LogUtil::registerError('_LOBBY_ALBUM_DELETE_ERROR');
                     }

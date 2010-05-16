@@ -9,41 +9,6 @@
  */
 
 /**
- * add a new album
- *
- * This function adds a new forum into the database
- *
- * @args['gid']				int		
- * @args['id']				int		
- * @args['title']			string 	
- * @args['description']		string 	
- * @args['public_status']	string 	
- *
- * @return boolean
- */
-function lobby_albumsapi_add($args)
-{
-	$obj['gid']				= (int)$args['gid'];
-	if (!($obj['gid']) > 0) {
-	  	LogUtil::registerError(_LOBBY_ALBUMM_CREATION_ERROR);
-		return false;
-	}
-	$obj['title']			= $args['title'];
-	$obj['description']		= $args['description'];
-	$obj['public_status']	= $args['public_status'];
-	
-	$result = DBUtil::insertObject($obj,'lobby_albums');
-	if ($result > 0) {
-	  	LogUtil::registerStatus(_LOBBY_ALBUM_CREATED);
-	  	return $result;
-	} else {
-	  	LogUtil::registerError(_LOBBY_ALBUM_CREATION_ERROR);
-		return false;
-	}
-
-}
-
-/**
  * get albums
  *
  * @args['gid']			int		group id
@@ -61,6 +26,11 @@ function lobby_albumsapi_get($args)
   	$column = $tables['lobby_albums_column'];
 
 	$where = array();
+	if (!($gid > 0)) {
+	    // get album and group id to check ownership later...
+        $result = DBUtil::selectObjectByID('lobby_albums',$id);
+        $gid = $result['gid'];
+    }
 	if ($gid > 0) $where[] = "tbl.".$column['gid']." = ".$gid;
 	if ($id > 0) $where[] = "tbl.".$column['id']." = ".$id;
 
@@ -92,7 +62,6 @@ function lobby_albumsapi_get($args)
 	$result = DBUtil::selectObjectArray('lobby_albums',$wherestring,$orderby);
 	if ($id > 0) {
         // add fotos to album
-        
         $orderby = 'date DESC';
         $where = 'aid = '.$id;
         $pictures = DBUtil::selectObjectArray('lobby_albums_pictures',$where,$orderby);
@@ -103,7 +72,7 @@ function lobby_albumsapi_get($args)
             }
         }
         $result[0]['pictures'] = $content;
-        return $result[0];
+        $resultObject =  $result;
 	} else {
         // add index foto to each album
         $resultList = array();
@@ -119,9 +88,80 @@ function lobby_albumsapi_get($args)
             }
             $resultList[]=$item;
         }
-        return $resultList;
+        $resultObject = $resultList;
+	}
+	return $resultObject;
+}
+
+/**
+ * add a new album
+ *
+ * This function adds a new forum into the database
+ *
+ * @args['gid']				int		
+ * @args['id']				int		
+ * @args['title']			string 	
+ * @args['description']		string 	
+ * @args['public_status']	string 	
+ *
+ * @return boolean
+ */
+function lobby_albumsapi_add($args)
+{
+	$obj['gid']				= (int)$args['gid'];
+	if (!($obj['gid']) > 0) {
+	  	LogUtil::registerError(_LOBBY_ALBUMM_CREATION_ERROR);
+		return false;
+	}
+	if (!isset($args['date']) || ($args['date'] == null) || ($args['date'] == '')) {
+        $obj['date'] = date("Y-m-d H:i:s",time());
+    } else {
+        $obj['date'] = $args['date'];
+    }
+	$obj['title']			= $args['title'];
+	$obj['description']		= $args['description'];
+	$obj['public_status']	= $args['public_status'];
+	
+	$result = DBUtil::insertObject($obj,'lobby_albums');
+	if ($result > 0) {
+	  	LogUtil::registerStatus(_LOBBY_ALBUM_CREATED);
+	  	return $result;
+	} else {
+	  	LogUtil::registerError(_LOBBY_ALBUM_CREATION_ERROR);
+		return false;
+	}
+
+}
+
+/**
+ * delete a album
+ *
+ * $args['id']		int		album id
+ * @return		booleam
+ */
+function lobby_albumsapi_del($args)
+{
+	$id = (int)$args['id'];
+	if (!($id > 0)) {
+		return false;
+	} else {
+		// albums
+		$where = 'aid = '.$id;
+		$result = DBUtil::deleteWhere('lobby_albums_pictures',$where);
+		if ($result) {
+    		$where = 'id = '.$id;
+            $result = DBUtil::deleteWhere('lobby_albums',$where);
+        } 
+        return $result;
 	}
 }
+
+
+
+
+
+
+
 
 /**
  * add a picture to a album
@@ -140,10 +180,13 @@ function lobby_albumsapi_addPicture($args)
     }
     // Load Group
     $album = lobby_albumsapi_get(array('id' => $aid));
+    $album = $album[0];
+//    if (pnusergetvar('uid') == 26351)  prayer($album);
     if (!$album) {
         return false;
     }
   	$group = pnModAPIFunc('lobby','groups','get',array('id' => $album['gid']));
+//  	prayer($group);
   	if (!$group) {
         return false;
     }
@@ -195,6 +238,7 @@ function lobby_albumsapi_delPicture($args)
     if (!$album) {
         return false;
     }
+    $album=$album[0];
   	$group = pnModAPIFunc('lobby','groups','get',array('id' => $album['gid']));
   	if (!$group) {
         return false;
@@ -206,32 +250,15 @@ function lobby_albumsapi_delPicture($args)
     }
     // Delete Picture if picture_uid = $uid or admin...
     $where = "aid = $aid and pid = $pid";
-    if ($memberStatus <= 2) {
-      $where.=" and $uid = ".pnUserGetVar('uid');
+    if ($memberStatus < 2) {
+        // we need to check id picture id belongs to user
+        $picture = pnModAPIFunc('UserPictures','user','get',array('id' => $pid));
+        if ((int)$picture[0]['uid'] != $uid) {
+            LogUtil::registerError(_LOBBY_NO_PERM_TO_DEL_PICTURE);
+            return false;
+        }
     }
     $result = (int)DBUtil::deleteWhere('lobby_albums_pictures',$where);
     return $result;
 }
 
-/**
- * delete a album
- *
- * $args['id']		int		album id
- * @return		booleam
- */
-function lobby_albumsapi_del($args)
-{
-	$id = (int)$args['id'];
-	if (!($id > 0)) {
-		return false;
-	} else {
-		// albums
-		$where = 'aid = '.$id;
-		$result = DBUtil::deleteWhere('lobby_albums_pictures',$where);
-		if ($result) {
-    		$where = 'id = '.$id;
-            $result = DBUtil::deleteWhere('lobby_albums',$where);
-        } 
-        return $result;
-	}
-}

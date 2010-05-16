@@ -508,8 +508,8 @@ define('_LOBBY_FORUMS_SHOW_NEWS_IN_BOXES',      'Die neuesten Nachrichten der Gr
 define('_LOBBY_FORUMS_SHOW_FORUM_LINKS_IN_BOXES',              'Die Foren-Schnell-Links seitlich automatisch aufklappen und anzeigen');
 define('_LOBBY_FORUMS_SHOW_LATEST_ALBUM_PICTURE_IN_BOXES',              'Letzten Bilder-Upload der Gruppenalben seitlich automatisch aufklappen und anzeigen');
 define('_LOBBY_VISIT_ALBUM',                     'Album aufrufen');
-define('',              '');
-define('',              '');
+define('_LOBBY_NO_PERM_TO_DEL_PICTURE',          'Dieses Bild kann nur durch den Gruppenbetreiber oder den Inhaber des Bildes gelöscht werden!');
+define('_LOBBY_ALBUM_DELETED',                  'Das Album wurde gelöscht');
 define('',              '');
 define('',              '');
 define('',              '');

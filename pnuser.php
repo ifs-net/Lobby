@@ -279,6 +279,12 @@ function lobby_user_group()
         $openNews = 1;
     }
     $render->assign('openNews', $openNews);
+
+
+    // Load Userpictures lang if module is available
+    if (pnModAvailable('UserPictures')) {
+        pnModLangLoad('UserPictures','user');
+    }
     
     // get albums
     if ($group['albums'] > 0) {
@@ -286,7 +292,6 @@ function lobby_user_group()
         $albums = pnModAPIFunc('lobby','albums','get',array('gid' => $group['id']));
         $latestpicture = $albums[0];
         $render->assign('latestpicture',$latestpicture);
-        pnModLangLoad('UserPictures');
     }
 
 	// Assign facts

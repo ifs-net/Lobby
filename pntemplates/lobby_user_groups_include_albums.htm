@@ -2,6 +2,11 @@
 
 <!--[*pndebug output="html"*]-->
 
+
+    <!--[php]-->
+//    prayer($this);
+    <!--[/php]-->
+
 <!--[pnformvalidationsummary]-->
 <h1><!--[pnml name="_LOBBY_GROUP_ALBUMS"]-->
 <!--[if $id gt 0]-->-
@@ -50,7 +55,7 @@
     
     <a name="deletelist"></a>
     <!--[/if]-->
-    
+    <!--[*$pictures|@prayer*]-->
     <!--[foreach from=$pictures item="item"]-->
         <!--[$item.code_thumbnail]-->
         <!--[if $facts.status gt 0]-->

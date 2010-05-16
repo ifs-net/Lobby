@@ -51,9 +51,9 @@ class lobby_user_pluginHandler
         }
       	// Load album if id is set
      	if ($aid > 0) {
-			$album = pnModAPIFunc('lobby','albums','get',array('id' => $aid,'gid' => $this->gid));
-			$this->album = $album;
-			$render->assign($album);
+			$album = pnModAPIFunc('lobby','albums','get',array('id' => $aid));
+			$this->album = $album[0];
+			$render->assign($this->album);
 		}
 		// Add style sheet
 		PageUtil::addVar('stylesheet',ThemeUtil::getModuleStylesheet('UserPictures'));
