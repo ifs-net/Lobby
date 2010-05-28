@@ -55,7 +55,6 @@ function lobby_upgrade($oldversion)
      case '1.0':
      case '1.1':
    	  	if (!DBUtil::changeTable('lobby_groups')) return false;
-    }
      case '1.2':
    	  	if (!DBUtil::changeTable('lobby_groups')) return false;
    	  	if (!DBUtil::createTable('lobby_albums')) return false;
