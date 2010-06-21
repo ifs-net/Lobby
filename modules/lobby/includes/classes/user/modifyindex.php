@@ -17,25 +17,17 @@ class lobby_user_pluginHandler
      	$this->id = $id;
       	// Load article if id is set
 		$index = DBUtil::selectObjectByID('lobby_pages',$this->id);
+		$index['indexpage'] = $index['text'];
 		$render->assign($index);
 
-		// add scribite support
-		if (pnModAvailable('scribite')) {
-			$scribite = pnModFunc('scribite','user','loader', array(
-										'modname' => 'lobby',
-			                            'editor'  => pnModGetVar('scribite', 'editor'),
-			                            'areas'   => array('text'),
-			                            'tpl'     => 'lobby_user_groups_include_modifyindex.htm'
-									));
-		    PageUtil::AddVar('rawtext', $scribite);
-		}
 		return true;
     }
     function handleCommand(&$render, &$args)
     {
 		if ($args['commandName']=='update') {
 			// get the form data and do a validation check
-		    $obj = $render->pnFormGetValues();		    
+		    $obj = $render->pnFormGetValues();
+		    $obj['text'] = $obj['indexpage'];		    
 			$obj['id'] = $this->id;
 		    // preview mode?
 		    if ($obj['preview'] == 1) {

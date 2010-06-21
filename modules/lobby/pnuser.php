@@ -584,7 +584,7 @@ function lobby_user_group()
 	  	default:
 	  		// Load individual home page
 	  		$index = pnModAPIFunc('lobby','pages','get',array('gid' => $id));
-	  		if (strlen($index) > 10) {
+	  		if (strlen($index) > 6) {
 			    $render->assign('index', $index);
 			}
 			// Load member information
