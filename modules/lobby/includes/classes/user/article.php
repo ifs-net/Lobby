@@ -21,6 +21,7 @@ class lobby_user_pluginHandler
      	if ($story > 0) {
 			$this->id = $story;
 			$article = pnModAPIFunc('lobby','news','get',array('id' => $this->id, 'gid' => $gid));
+			$article['articletext'] = $article['text'];
 			$render->assign($article);
 		}
 		$public_status_items = array (
@@ -30,16 +31,6 @@ class lobby_user_pluginHandler
 			);
 		$render->assign('public_status_items', $public_status_items);
 
-		// add scribite support
-		if (pnModAvailable('scribite')) {
-			$scribite = pnModFunc('scribite','user','loader', array(
-										'modname' => 'lobby',
-			                            'editor'  => pnModGetVar('scribite', 'editor'),
-			                            'areas'   => array('text'),
-			                            'tpl'     => 'lobby_user_groups_include_article.htm'
-									));
-		    PageUtil::AddVar('rawtext', $scribite);
-		}
 		if (!($this->id > 0)) {
 			// Add initial date
 			$initDate = date("Y-m-d H:i",time());
@@ -54,6 +45,7 @@ class lobby_user_pluginHandler
 		    $obj = $render->pnFormGetValues();		    
 			$obj['uid'] = pnUserGetVar('uid');
 			$obj['gid'] = $this->gid;
+			$obj['text']= $obj['articletext'];
 		    // preview mode?
 		    if ($obj['preview'] == 1) {
 				LogUtil::registerStatus(_LOBBY_NEWS_ARTICLEPREVIEW);
