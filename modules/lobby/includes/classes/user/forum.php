@@ -28,7 +28,8 @@ class lobby_user_pluginHandler
      	if ($action == 'subscribe') {
      	  	if (!SecurityUtil::confirmAuthKey()) {
 				LogUtil::registerAuthIDError();
-			} else if ($tid > 0) {
+				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
+     	  	} else if ($tid > 0) {
 				pnModAPIFunc('lobby','subscriptions','set',array('tid' => $tid, 'uid' => pnUserGetVar('uid')));
 				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
 			} else if ($fid > 0) {
@@ -38,7 +39,8 @@ class lobby_user_pluginHandler
 		} else if ($action == 'unsubscribe') {
      	  	if (!SecurityUtil::confirmAuthKey()) {
 				LogUtil::registerAuthIDError();
-			} else if ($tid > 0) {
+				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
+     	  	} else if ($tid > 0) {
 				pnModAPIFunc('lobby','subscriptions','del',array('tid' => $tid, 'uid' => pnUserGetVar('uid')));
 				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
 			} else if ($fid > 0) {

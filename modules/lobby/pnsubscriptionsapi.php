@@ -26,8 +26,8 @@ function lobby_subscriptionsapi_set($args)
 	$group = pnModAPIFunc('lobby','groups','get',array('id' => $forum['gid']));
 	$memberstatus = pnModAPIFunc('lobby','groups','getMemberStatus',array('group' => $group, 'uid' => $uid));
 	// Check if user is in the group if a private forum is selected
-	if ( ($forum['public_status'] == 2) && ($memberstatus < 2) ) {
-		LogUtil::registerAuthIDError();
+	if ( ($forum['public_status'] == 2) && ($memberstatus < 1) ) {
+		LogUtil::registerError(_LOBBY_FORUM_NO_PERMISSION);
 		return false;
 	}
 	

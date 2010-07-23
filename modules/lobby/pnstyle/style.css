@@ -245,7 +245,8 @@
 	background-color: #FFFFFF;
 	max-height: 1200px;
 	overflow-x:hidden;
-	overflow-y:auto;	
+	overflow-y:auto;
+	width: 100%;	
 }
 
 .lobby_forum_post h3 {
@@ -312,13 +313,13 @@
 }
 
 #lobby_content_right {
-	width:700px; 
+	width:75%; 
 	padding-top: 10px;
 	float:right;
 }
 
 #lobby_content_left {
-	width:230px; 
+	width:25%; 
 	padding-top: 10px;
 	float:left;
 }

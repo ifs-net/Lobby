@@ -15,7 +15,7 @@ function smarty_function_subscription($params, &$smarty)
 	$status = (int)$params['status'];
 	$gid = (int)$params['gid'];
 
-	$authid = SecurityUtil::generateAuthKey();
+	$authid = SecurityUtil::generateAuthKey('lobby');
 	$c='';
 	
 //	if ($status < 1) {

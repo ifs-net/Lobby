@@ -11,8 +11,6 @@
 <!--[/if]-->
 </div>
 
-
-
 <!--[if $editmode ne 1]-->
 	
 	<p>
@@ -43,7 +41,7 @@
 	
 			<!--[if $memberStatus gt 0 or ($forum.public_status lt 2 and $loggedin eq 1)]-->
 				<div class="lobby_subscription">
-					<!--[subscription fid=$forum.id status=$facts.status gid=$group.id tid=$topic.id fid=$topic.fid]-->
+					<!--[subscription fid=$forum.id status=$facts.status gid=$group.id tid=$topic.id fid=$topic.fid authid=$authid]-->
 				</div>
 			<!--[/if]-->
 			<img src="images/icons/extrasmall/edit.gif" /> <a id="lobby_edit_link" href="#lobby_edit"><!--[pnml name="_LOBBY_NEW_REPLY"]--></a>

@@ -1,4 +1,4 @@
-
+<!--[*
 			<div class="lobby_forum_topic_list">
 				<div class="lobby_forum_topic_list_title lobby_important">
 					<!--[pnml name="_LOBBY_FORUM_TOPIC_TITLE"]-->
@@ -11,8 +11,48 @@
 				</div>
 				<br style="clear:both;" />
 			</div>
+
+*]-->
+			<table style="width: 100%">
+				<tr>
+					<th><!--[pnml name="_LOBBY_FORUM_TOPIC_TITLE"]--></th>
+					<th><!--[pnml name="_LOBBY_FORUM_TOPIC_REPLIES"]--></th>
+					<th><!--[pnml name="_LOBBY_FORUM_TOPIC_LASTDATE"]--></th>
+				</tr>
 			
 			<!--[foreach from=$topics item="topic"]-->
+				<tr style="background-color:<!--[cycle values="#fff,#ddd"]-->">
+				<td id="topic_<!--[$topic.id]-->" >
+							<!--[if $topic.marked eq 1]-->
+								<img src="images/icons/extrasmall/services_flag.gif" alt="<!--[pnml name="_LOBBY_MODERATION_TOPIC_MARKED"]-->" title="<!--[pnml name="_LOBBY_MODERATION_TOPIC_MARKED"]-->"/> 
+							<!--[/if]-->
+							<!--[if $topic.replies gt 20]-->
+								<img src="images/icons/extrasmall/error.gif" alt="<!--[pnml name="_LOBBY_MODERATION_HOTTOPIC"]-->" title="<!--[pnml name="_LOBBY_MODERATION_HOTTOPIC"]-->"/> 
+							<!--[/if]-->
+							<span class="lobby_important"><a href="<!--[pnmodurl modname="lobby" func="group" id=$topic.gid do="forum" fid=$topic.fid topic=$topic.id]-->"><!--[$topic.title|truncate:65:'...']--></a></span>
+						</span><br />
+						<span class="lobby_lite lobby_small">
+							<!--[pnml name="_LOBBY_AUTHOR"]-->: <!--[$topic.uname|userprofilelink]--><!--[if $topic.replies gt 0]-->, <!--[pnml name="_LOBBY_LAST_REPLY"]-->: <!--[$topic.last_uname|userprofilelink]--><!--[/if]--><br />
+							<!--[if $includeforum eq 1]-->
+								<!--[pnml name="_LOBBY_FORUM"]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$topic.gid do="forum" fid=$topic.fid]-->"><!--[$topic.forum_title|pnvarprepfordisplay|truncate:120:"..."]--></a>
+								<!--[if $includegroup eq 1]-->
+									@ <a href="<!--[pnmodurl modname="lobby" func="group" id=$topic.gid"]-->"><!--[$topic.group_title|pnvarprepfordisplay|truncate:255:'...']--></a>
+								<!--[/if]-->
+							<!--[/if]-->
+						</span>
+					</td>
+					<td>
+						<!--[$topic.replies]-->
+					</td>
+					<td class="lobby_small">
+						<!--[$topic.last_date|date:2]--><br />
+						<!--[if $topic.replies gt 0]-->
+						<span class="lobby_topiclink" ><a href="<!--[lasttopic numrows=$postsperpage replies=$topic.replies assign="page" id=$topic.gid do="forum" fid=$topic.fid topic=$topic.id lastposting=$topic.last_pid]-->#<!--[$topic.last_pid]-->"><img src="images/icons/extrasmall/agt_update-product.gif" title="<!--[pnml name="_LOBBY_FORUM_LATEST_POSTING"]-->" alt="<!--[pnml name="_LOBBY_FORUM_LATEST_POSTING"]-->" /></a></span>
+						<!--[/if]-->
+					</td>
+				</tr>
+
+<!--[*
 				<div id="topic_<!--[$topic.id]-->" class="lobby_forum_topic_list" onmouseover="javascript:$('topic_<!--[$topic.id]-->').addClassName('lobby_forum_topic_hover');return false;" onmouseout="javascript:$('topic_<!--[$topic.id]-->').removeClassName('lobby_forum_topic_hover');return false;">
 					<div class="lobby_forum_topic_list_title">
 						<span class="lobby_important">
@@ -45,11 +85,12 @@
 					</div>
 					<br style="clear:both;" />
 				</div>
+
+*]-->
 			<!--[foreachelse ]-->
-			<div>
-				<!--[pnml name="_LOBBY_FORUM_NOPOSTS"]-->
-			</div>
+			<tr><td colspan="3"><!--[pnml name="_LOBBY_FORUM_NOPOSTS"]--></td></tr>
 			<!--[/foreach]-->
+			</table>
 		
 			<div class="lobby_pager">
 				<!--[pager show="page" rowcount=$topicscounter limit=$numrows posvar=lobbypager shift=1]-->
