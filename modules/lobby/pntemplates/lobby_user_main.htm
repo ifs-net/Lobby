@@ -1,6 +1,6 @@
 <!--[include file="lobby_user_header.htm"]-->
 
-<h1><!--[pnml name="_LOBBY_WELCOME"]--></h1>
+<h2><!--[pnml name="_LOBBY_WELCOME"]--></h2>
 <p>
 	<!--[pnml name="_LOBBY_INTRO_WELCOME_TEXT"]-->.
 </p>
@@ -22,7 +22,7 @@
 
 <div style="margin-top: 20px;">
 	<div style="float:left; width:50%;height:200px;">
-		<h2><!--[pnml name="_LOBBY_ALL_GROUPS_NEWS"]--></h2>
+		<h3><!--[pnml name="_LOBBY_ALL_GROUPS_NEWS"]--></h3>
 		<ul>
 		<!--[foreach from=$allNews item="news"]-->
 			<li><!--[$news.date|date]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$news.gid do="news" story=$news.id]-->"><!--[$news.title]--></a></li>
@@ -32,7 +32,7 @@
 		</ul>
 	</div>
 	<div style="float:left; width:50%;height:200px;">
-		<h2><!--[pnml name="_LOBBY_MY_GROUPS_NEWS"]--></h2>
+		<h3><!--[pnml name="_LOBBY_MY_GROUPS_NEWS"]--></h3>
 		<ul>
 		<!--[foreach from=$ownNews item="news"]-->
 			<li><!--[$news.date|date]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$news.gid do="news" story=$news.id]-->"><!--[$news.title]--></a></li>
@@ -43,7 +43,7 @@
 	</div>
 	<br style="clear:both;" />
 	<div style="float:left; width:50%;height:200px;">
-		<h2><!--[pnml name="_LOBBY_ALL_GROUPS_POSTS"]--></h2>
+		<h3><!--[pnml name="_LOBBY_ALL_GROUPS_POSTS"]--></h3>
 		<!--[foreach from=$allTopics item="topic"]-->
 			<li><!--[$topic.last_date|date]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$topic.gid do="forum" fid=$topic.fid topic=$topic.id]-->"><!--[$topic.title]--></a></li>
 		<!--[foreachelse]-->
@@ -51,7 +51,7 @@
 		<!--[/foreach]-->
 	</div>
 	<div style="float:left; width:50%;height:200px;">
-		<h2><!--[pnml name="_LOBBY_MY_GROUPS_POSTS"]--></h2>
+		<h3><!--[pnml name="_LOBBY_MY_GROUPS_POSTS"]--></h3>
 		<!--[foreach from=$ownTopics item="topic"]-->
 			<li><!--[$topic.last_date|date]-->: <a href="<!--[pnmodurl modname="lobby" func="group" id=$topic.gid do="forum" fid=$topic.fid topic=$topic.id]-->"><!--[$topic.title]--></a></li>
 		<!--[foreachelse]-->
@@ -60,7 +60,7 @@
 	</div>
 
 	<div style="float:left; width:50%;height:200px;">
-		<h2><!--[pnml name="_LOBBY_RECENT_JOINS"]--></h2>
+		<h3><!--[pnml name="_LOBBY_RECENT_JOINS"]--></h3>
 		<ul>
 		<!--[foreach from=$newMembers item="membership"]-->
 			<li><!--[$membership.uname|userprofilelink]--> <!--[pnml name="_LOBBY_ENTERED"]--> <a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$membership.gid]-->"><!--[$membership.title]--></a>
@@ -70,7 +70,7 @@
 		</ul>
 	</div>
 	<div style="float:left; width:50%;height:200px;">
-		<h2><!--[pnml name="_LOBBY_NEW_GROUPS"]--></h2>
+		<h3><!--[pnml name="_LOBBY_NEW_GROUPS"]--></h3>
 		<ul>
 		<!--[foreach from=$newGroups item="group"]-->
 			<li><!--[$group.date|date]-->: <a href="<!--[pnmodurl modname="lobby" type="user" func="group" id=$group.id]-->"><!--[$group.title|truncate:30:'...'|pnvarprepfordisplay]--></a> <!--[pnml name="_LOBBY_OF"]--> <!--[$group.uname|userprofilelink]--></li>

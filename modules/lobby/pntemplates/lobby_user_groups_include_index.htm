@@ -11,7 +11,7 @@
 		</div>
 		<div class="lobby_groupbox" id="lobby_topics">
 			<p>
-			<h2><!--[pnml name="_LOBBY_GROUP_NEW_TOPICS"]--></h2>
+			<h3><!--[pnml name="_LOBBY_GROUP_NEW_TOPICS"]--></h3>
 			</p>
 		<!--[pnajaxheader prototype="1"]-->
 
@@ -27,7 +27,7 @@
 		</div>
 		<div class="lobby_groupbox" id="lobby_postings">
 			<p>
-			<h2><!--[pnml name="_LOBBY_GROUP_NEW_POSTINGS"]--></h2>
+			<h3><!--[pnml name="_LOBBY_GROUP_NEW_POSTINGS"]--></h3>
 			</p>
 
 		<div class="lobby_index_forum_wrapper">
@@ -46,7 +46,7 @@
 				<a href="<!--[pnmodurl modname="lobby" type="rss" func="members" id=$group.id]-->"><img src="modules/lobby/pnimages/rss.jpg"></a>
 			</div>
 			<p>
-			<h2><!--[pnml name="_LOBBY_GROUP_LATEST_MEMBERS"]--></h2>
+			<h3><!--[pnml name="_LOBBY_GROUP_LATEST_MEMBERS"]--></h3>
 			</p>
 			<p>
 			<!--[foreach from=$members item="member"]-->
@@ -64,7 +64,7 @@
 
 		<div class="lobby_groupbox">
 			<p>
-			<h2><!--[pnml name="_LOBBY_GROUP_ONLINE_MEMBERS"]--></h2>
+			<h3><!--[pnml name="_LOBBY_GROUP_ONLINE_MEMBERS"]--></h3>
 			</p>
 			<p>
 			<div class="lobby_onlinebox">
@@ -83,7 +83,7 @@
 		<!--[if $mymapavailable and $group.coordinates ne ""]-->
 			<div class="lobby_groupbox" >
 				<p>
-				<h2><!--[pnml name="_LOBBY_OUR_PLACE"]--></h2>
+				<h3><!--[pnml name="_LOBBY_OUR_PLACE"]--></h3>
 				</p>
 				<p>
 				<!--[pnmodapifunc modname="MyMap" type="user" func="generateMap" width="650" height="250" maptype="hybrid" zoomfactor="11" coords=$coords]-->

@@ -224,7 +224,7 @@
 					});
             <!--[/if]-->
 
-            <!--[if $group.boxes_showalbums ne 1]-->
+            <!--[if $group.boxes_showalbums ne 1 and $latestpicture.cover.id > 0]-->
 					$('lobby_groupbox_albumlinks').toggle();
 					var lobby_groupbox_albumlinks_down = 0;
 					Event.observe('lobby_groupbox_albumlinks_link', 'click', function(event) {

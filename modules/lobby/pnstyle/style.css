@@ -45,6 +45,12 @@
   	border: 0px;
 }
 
+.lobby_box_title {
+	font-weight: bold;
+	font-size: 1.1em;
+	font-color: #000;
+}
+
 .lobby_groupbox {
 	border-right: 1px solid #c3c3c3;
 	border-bottom: 1px solid #c3c3c3;
@@ -172,21 +178,8 @@
   	width: 48%;
 }
 
-.lobby_forum_topic_list {
-	width: 100%;
-	border-bottom: 1px solid #ccc;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
 .lobby_forum_topic_marked {
 	background-color: #F0E68C;
-}
-
-.lobby_forum_topic_list_title {
-	width: 420px;
-	float:left;
-	padding-left: 10px;
 }
 
 .lobby_index_forum_wrapper {
@@ -199,17 +192,6 @@
 	padding-left: 10px;
 }
 
-.lobby_forum_topic_list_date {
-	width: 130px;
-	float: right;
-	text-align:center;
-}
-
-.lobby_forum_topic_list_replies {
-	width: 90px;
-	float: left;
-	text-align:center;
-}
 
 .lobby_forum_topic_list_replies_field {
   	padding-top:11px;
@@ -296,7 +278,7 @@
 }
 
 .lobby_breadcrumb {
-  	font-size: 1.5em;
+  	font-size: 1.1em;
   	font-weight: bold;
 }
 

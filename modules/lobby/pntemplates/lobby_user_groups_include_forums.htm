@@ -5,8 +5,6 @@
 <a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forums"]-->"><!--[pnml name="_LOBBY_FORUMS"]--></a>
 </div>
 
-<h1><!--[pnml name="_LOBBY_FORUM_INDEX"]--></h1>
-
 <!--[if $facts.status lt 1]-->
 	<div class="pn-informationmsg"><!--[pnml name="_LOBBY_FORUM_PUBLICSTATUS_TEXT"]--></div>
 <!--[/if]-->
@@ -21,7 +19,7 @@
 			<!--[$forum.posts]--> <!--[pnml name="_LOBBY_FORUM_POSTS"]-->.
 		</div>
 		<div class="lobby_forum_title">
-			<h2><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$forum.id]-->"><img src="images/icons/small/agt_forward.gif" /> <!--[$forum.title]--></h2></a>
+			<h4><a href="<!--[pnmodurl modname="lobby" func="group" id=$group.id do="forum" fid=$forum.id]-->"><img src="images/icons/extrasmall/agt_forward.gif" /> <!--[$forum.title]--></h4></a>
 		</div>
 		<div class="lobby_forum_description">
 			<span class="lobby_forum_date">
@@ -67,7 +65,7 @@
 
 
 <p>
-<h2><!--[pnml name="_LOBBY_LATEST_POSTS"]--></h2>
+<h3><!--[pnml name="_LOBBY_LATEST_POSTS"]--></h3>
 </p>
 <div class="lobby_index_forum_wrapper">
 	<!--[assign var="topicscounter" value=$group.topics]-->
