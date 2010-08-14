@@ -84,11 +84,30 @@ function lobby_subscriptionsapi_get($args)
 	$uid = (int)$args['uid'];
 
 	$tables = pnDBGetTables();
-	$column_forums = $tables['lobby_forum_subscriptions_column'];
-	$column_topics = $tables['lobby_forum_topic_subscriptions_column'];
+	$column_forums  = $tables['lobby_forum_subscriptions_column'];
+	$column_topics  = $tables['lobby_forum_topic_subscriptions_column'];
+	$column_members = $tables['lobby_members_column'];
+	$table_members  = $tables['lobby_members'];
+	
+	// Information for security check:
+	// public_status from forum:
+	// 0 = all, 1 = registered users, 2 = members of group.
+
 	if ($tid > 0) {
-	  	// subscribe topic
-	  	$whereArray = array();
+	    $whereArray = array();
+	    // get topic for security check
+	    // get topic
+	    $topic = pnModAPIFunc('lobby','forumtopics','get',array('id' => $tid));
+	    // get forum and its pubic_status
+//	    prayer($topic);
+	    $forum = pnModAPIFunc('lobby','forums','get',array('id' => $topic['fid']));
+//	    prayer($forum);
+	    // get information if user is member of group or not
+	    if ($forum['public_status'] > 1) {
+	        $whereArray[] = $column_topics['uid']." IN (SELECT ".$column_members['uid']." FROM ".$table_members." WHERE ".$column_members['gid']." = ".$forum['gid'].")";
+	    }
+	    
+	    // subscribe topic
 		if ($uid > 1) {
 			$whereArray[] = $column_topics['uid']." = ".$uid;
 		}
@@ -108,7 +127,16 @@ function lobby_subscriptionsapi_get($args)
 	} else if ($fid > 0){
 	  	// forum
 	  	$whereArray = array();
-		if ($uid > 1) {
+	    // get topic for security check
+	    // get forum and its pubic_status
+//	    prayer($topic);
+	    $forum = pnModAPIFunc('lobby','forums','get',array('id' => $fid));
+//	    prayer($forum);
+	    // get information if user is member of group or not
+	    if ($forum['public_status'] > 1) {
+	        $whereArray[] = $column_topics['uid']." IN (SELECT ".$column_members['uid']." FROM ".$table_members." WHERE ".$column_members['gid']." = ".$forum['gid'].")";
+	    }
+	  	if ($uid > 1) {
 		  	$whereArray[] = $column_forums['uid']." = ".$uid;
 		}
 		$whereArray[] = $column_forums['fid']." = ".$fid;
