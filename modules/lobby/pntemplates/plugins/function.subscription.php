@@ -17,7 +17,7 @@ function smarty_function_subscription($params, &$smarty)
 
 	$authid = SecurityUtil::generateAuthKey('lobby');
 	$c='';
-	
+	//prayer($params);
 //	if ($status < 1) {
 //	  	return '';
 //	}

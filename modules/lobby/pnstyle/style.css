@@ -217,7 +217,6 @@
 	-khtml-border-radius:12px;
 }
 .lobby_forum_post {
-//  	font-size:1.1em;
 	border:1px solid #ccc;
 	padding: 10px;
 	margin-top: 10px;
@@ -225,9 +224,7 @@
 	-moz-border-radius:8px;
 	-khtml-border-radius:8px;
 	background-color: #FFFFFF;
-	max-height: 1200px;
-	overflow-x:hidden;
-	overflow-y:auto;
+	overflow: none;
 	width: 100%;	
 }
 
@@ -294,14 +291,16 @@
 }
 
 #lobby_content_right {
-	width:75%; 
-	padding-top: 10px;
+	width:73%; 
+	margin: 0px;
+	padding: 0px;
 	float:right;
 }
 
 #lobby_content_left {
 	width:25%; 
-	padding-top: 10px;
+	margin: 0px;
+	padding: 0px;
 	float:left;
 }
 
