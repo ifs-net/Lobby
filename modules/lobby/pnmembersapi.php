@@ -43,7 +43,7 @@ function lobby_membersapi_get($args)
 	$online 	= (int)$args['online'];
 	$groupinformation = (int)$args['groupinformation'];
 	if (!($gid > 0) && ($showall != 1)) {
-  	  	LogUtil::registerError(_LOBBY_GROUP_GETMEMBERS_PARAMFAILURE);
+//  	  	LogUtil::registerError(_LOBBY_GROUP_GETMEMBERS_PARAMFAILURE);
 		return false;
 	} else {
 	  	// Cache function
