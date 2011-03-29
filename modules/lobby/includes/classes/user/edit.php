@@ -2,7 +2,7 @@
 /**
  * @package      lobby
  * @version      $Id $
- * @author       Florian Schießl
+ * @author       Florian Schieï¿½l
  * @link         http://www.ifs-net.de
  * @copyright    Copyright (C) 2009
  * @license      no public license - read license.txt in doc directory for details
@@ -33,7 +33,8 @@ class lobby_user_editHandler
 			$group['lng'] = $coords['lng'];
 			$group['lat'] = $coords['lat'];
 			$this->group = $group;
-			if (SecurityUtil::checkPermission('lobby::', '::', ACCESS_ADMIN) || ($group['uid'] == pnUserGetVar())) {
+                        
+			if (SecurityUtil::checkPermission('lobby::', '::', ACCESS_ADMIN) || ($group['uid'] == pnUserGetVar('uid'))) {
 				$render->assign($group);
 				$render->assign('edit', 1);
 				// overwrite category items
@@ -43,8 +44,11 @@ class lobby_user_editHandler
 				} else {
 					$category = pnModAPIFunc('lobby','categories','get');
 					$category_items = lobby_categoriesToPullDown($category);
-			}
-			}
+                                }
+			} else {
+                            LogUtil::registerPermissionError();
+                            return $render->pnFormRedirect(pnModUrl('lobby'));
+                        }
 		}
 		$render->assign('category_items', $category_items);
 		// Is MyMap module available?
