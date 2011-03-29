@@ -2,7 +2,7 @@
 /**
  * @package      lobby
  * @version      $Id $
- * @author       Florian Schießl
+ * @author       Florian Schieï¿½l
  * @link         http://www.ifs-net.de
  * @copyright    Copyright (C) 2009
  * @license      no public license - read license.txt in doc directory for details
@@ -43,9 +43,10 @@ class lobby_user_pluginHandler
 		if ($args['commandName']=='update') {
 			// get the form data and do a validation check
 		    $obj = $render->pnFormGetValues();		    
-			$obj['uid'] = pnUserGetVar('uid');
-			$obj['gid'] = $this->gid;
-			$obj['text']= $obj['articletext'];
+                    $obj['uid'] = pnUserGetVar('uid');
+                    $obj['gid'] = $this->gid;
+                    $obj['text']= $obj['articletext'];
+                    $obj['date'] = DateUtil::transformInternalDate(DateUtil::parseUIDate($obj['date']));
 		    // preview mode?
 		    if ($obj['preview'] == 1) {
 				LogUtil::registerStatus(_LOBBY_NEWS_ARTICLEPREVIEW);
