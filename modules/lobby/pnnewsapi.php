@@ -32,7 +32,6 @@ function lobby_newsapi_get($args)
     $since      = $args['since'];
     $category   = (int)$args['catfilter'];
     $infuture = (int)$args['infuture'];
-    print $infuture;
     if (($onlyown == 1) && (!(pnUserGetVar('uid') > 1))) {
         return array();
     }
