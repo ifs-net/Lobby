@@ -2,7 +2,7 @@
 /**
  * @package      lobby
  * @version      $Id $
- * @author       Florian Schießl
+ * @author       Florian Schieï¿½l
  * @link         http://www.ifs-net.de
  * @copyright    Copyright (C) 2009
  * @license      no public license - read license.txt in doc directory for details
@@ -22,14 +22,13 @@ class lobby_user_pluginHandler
      	$this->tid = $tid;
      	$this->gid = $gid;
      	$this->fid = $fid;
-     	
+
      	// is there an action to be done?
      	$action = FormUtil::getPassedValue('action');
      	if ($action == 'subscribe') {
      	  	if (!SecurityUtil::confirmAuthKey()) {
 				LogUtil::registerAuthIDError();
-				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
-     	  	} else if ($tid > 0) {
+			} else if ($tid > 0) {
 				pnModAPIFunc('lobby','subscriptions','set',array('tid' => $tid, 'uid' => pnUserGetVar('uid')));
 				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
 			} else if ($fid > 0) {
@@ -39,8 +38,7 @@ class lobby_user_pluginHandler
 		} else if ($action == 'unsubscribe') {
      	  	if (!SecurityUtil::confirmAuthKey()) {
 				LogUtil::registerAuthIDError();
-				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
-     	  	} else if ($tid > 0) {
+			} else if ($tid > 0) {
 				pnModAPIFunc('lobby','subscriptions','del',array('tid' => $tid, 'uid' => pnUserGetVar('uid')));
 				return $render->pnFormRedirect(pnModURL('lobby','user','group',array('do' => 'forum', 'id' => $gid, 'fid' => $fid, 'topic' => $tid)));
 			} else if ($fid > 0) {
@@ -134,7 +132,7 @@ class lobby_user_pluginHandler
 				LogUtil::registerAuthIDError();
 			}
 		}
-     	
+
      	// load forum for group
      	$forum = pnModAPIFunc('lobby','forums','get',array('id' => $this->fid, 'gid' => $this->gid));
      	// no forum?
@@ -154,8 +152,8 @@ class lobby_user_pluginHandler
 		  	// number of posts per page;
      	  	$numrows = pnModGetVar('lobby','postsperpage');
 	     	// assign topic - needed in topic and postings view
-	     	$topic = pnModAPIFunc('lobby','forumtopics','get',array('id' => $this->tid, 'gid' => $this->gid));
-			// load a special topic
+	     	$topic = pnModAPIFunc('lobby','forumtopics','get',array('id' => $this->tid, 'gid' => $this->gid, 'fid' => $this->fid));
+		// load a special topic
 	     	$posts = pnModAPIFunc('lobby','forumposts','get',array('tid' => $this->tid, 'numrows' => $numrows, 'offset' => $offset));
 	     	$render->assign('posts',$posts);
 	     	$render->assign('topic', $topic);
@@ -182,12 +180,12 @@ class lobby_user_pluginHandler
      	$render->assign('numrows', $numrows);
 		return true;
     }
-    
+
     function handleCommand(&$render, &$args)
     {
 		if ($args['commandName'] == 'update') {
 			// get the form data and do a validation check
-		    $obj = $render->pnFormGetValues();		    
+		    $obj = $render->pnFormGetValues();
 		    // are we in edit mode?
 		    if ($this->pid > 0) {
 			  	// Load lib and check if Posting is really editable
@@ -252,12 +250,12 @@ class lobby_user_pluginHandler
 			    // store or update group
 			    if ($this->id > 0) {
 					$obj['id'] = $this->id;
-			      	// Is there an action to be done?			      	
+			      	// Is there an action to be done?
 				} else {
 					if ($this->tid > 0) {	// add new post
 						$obj['tid'] = $this->tid;
 						$pid = pnModAPIFunc('lobby','forumposts','add',$obj);
-						
+
 						// Sync topic
 						pnModAPIFunc('lobby','forumtopics','sync',array('id' => $this->tid));
 

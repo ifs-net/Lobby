@@ -20,7 +20,7 @@ class lobby_user_pluginHandler
      	$story = (int)FormUtil::getPassedValue('story');
      	if ($story > 0) {
 			$this->id = $story;
-			$article = pnModAPIFunc('lobby','news','get',array('id' => $this->id, 'gid' => $gid));
+			$article = pnModAPIFunc('lobby','news','get',array('id' => $this->id, 'gid' => $gid, 'infuture' => 1));
 			$article['articletext'] = $article['text'];
 			$render->assign($article);
 		}

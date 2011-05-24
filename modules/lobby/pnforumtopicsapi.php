@@ -87,7 +87,7 @@ function lobby_forumtopicsapi_get($args)
 	    if (SecurityUtil::checkPermission('lobby::', '::', ACCESS_ADMIN)) {
 		  	$mystatus = 2;
 		}
-		
+
 		if ($mystatus < 2) {
 			$whereArray[] = "b.".$column_forums['public_status']." <= ".$mystatus;
 		}
@@ -140,10 +140,16 @@ function lobby_forumtopicsapi_get($args)
     // If only official postings should be included we will add an where clase and a join information
     if ($official == 1) {
       	$category_table = DBUtil::getLimitedTablename('lobby_categories');
-		$whereArray[] = "f.".$column_groups['category']." IN ( 
+		$whereArray[] = "f.".$column_groups['category']." IN (
 					SELECT ".$column_categories['id']." from ".$category_table." WHERE official = 1
 				)";
 	}
+
+
+	// if only one should be selected...
+//	if ($id > 0) {
+//		$whereArray[] = "tbl.".$column_topics['id']." = ".(int)$id;
+//	}
 
 	// Build where string
 	$where = implode(' AND ',$whereArray);
@@ -158,6 +164,17 @@ function lobby_forumtopicsapi_get($args)
 	}
 	if ($id > 0) {
 		$result = DBUtil::selectExpandedObjectByID('lobby_forum_topics',$joinInfo,$id);
+		if ((int)$result['fid'] != (int)FormUtil::getpassedvalue('fid')) {
+//prayer($whereArray);
+//prayer($result);
+//print "fid: $fid";
+//prayer($args);
+//print "<hr>";
+//			die("....");
+		LogUtil::registerError('wrong parameters for API function - access to topic denied!');
+		return false;
+		}
+		//$result = DBUtil::selectExpandedObjectArray('lobby_forum_topics',$joinInfo,$where);
 	} else {
 	  	if ($count == 1) {
 			$result = DBUtil::selectExpandedObjectCount('lobby_forum_topics',$joinInfo,$where);
@@ -366,7 +383,7 @@ function lobby_forumtopicsapi_sync($args)
 
 	DBUtil::SQLCache(true);
 
-  	// Get object 
+  	// Get object
   	$topic = DBUtil::selectObjectByID('lobby_forum_topics',$id);
   	if ($topic['id'] != $id) {
 	    return false;
@@ -376,7 +393,7 @@ function lobby_forumtopicsapi_sync($args)
   	$replies = DBUtil::selectObjectCountByID('lobby_forum_posts',$id,$pcolumn['tid']);
   	$replies--; // The original topic post is not a reply
   	$topic['replies'] = $replies;
-  	
+
   	// Last reply and last_date
   	if ($replies == 0) {
  	    $topic['last_date'] = $topic['date'];
@@ -391,7 +408,7 @@ function lobby_forumtopicsapi_sync($args)
 	  	$topic['last_pid']  = $lastpost['id'];
  	    $topic['last_uid']  = $lastpost['uid'];
 	}
-	
+
 	// Update object
 	$result = DBUtil::updateObject($topic,'lobby_forum_topics');
 	return $result;

@@ -2,7 +2,7 @@
 /**
  * @package      lobby
  * @version      $Id $
- * @author       Florian Schießl
+ * @author       Florian Schieï¿½l
  * @link         http://www.ifs-net.de
  * @copyright    Copyright (C) 2009
  * @license      no public license - read license.txt in doc directory for details
@@ -82,7 +82,6 @@ function lobby_subscriptionsapi_get($args)
 	$fid = (int)$args['fid'];
 	$tid = (int)$args['tid'];
 	$uid = (int)$args['uid'];
-
 	$tables = pnDBGetTables();
 	$column_forums  = $tables['lobby_forum_subscriptions_column'];
 	$column_topics  = $tables['lobby_forum_topic_subscriptions_column'];
@@ -99,9 +98,7 @@ function lobby_subscriptionsapi_get($args)
 	    // get topic
 	    $topic = pnModAPIFunc('lobby','forumtopics','get',array('id' => $tid));
 	    // get forum and its pubic_status
-//	    prayer($topic);
 	    $forum = pnModAPIFunc('lobby','forums','get',array('id' => $topic['fid']));
-//	    prayer($forum);
 	    // get information if user is member of group or not
 	    if ($forum['public_status'] > 1) {
 	        $whereArray[] = $column_topics['uid']." IN (SELECT ".$column_members['uid']." FROM ".$table_members." WHERE ".$column_members['gid']." = ".$forum['gid'].")";
@@ -125,13 +122,11 @@ function lobby_subscriptionsapi_get($args)
 			return $result;
 		}
 	} else if ($fid > 0){
-	  	// forum
-	  	$whereArray = array();
+            // forum
+            $whereArray = array();
 	    // get topic for security check
 	    // get forum and its pubic_status
-//	    prayer($topic);
-	    $forum = pnModAPIFunc('lobby','forums','get',array('id' => $fid));
-//	    prayer($forum);
+	    $forum = pnModAPIFunc('lobby','forums','get',array('id' => $fid,'showall' => 1));
 	    // get information if user is member of group or not
 	    if ($forum['public_status'] > 1) {
 	        $whereArray[] = $column_topics['uid']." IN (SELECT ".$column_members['uid']." FROM ".$table_members." WHERE ".$column_members['gid']." = ".$forum['gid'].")";

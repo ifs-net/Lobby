@@ -2,7 +2,7 @@
 /**
  * @package      lobby
  * @version      $Id $
- * @author       Florian Schießl
+ * @author       Florian Schieï¿½l
  * @link         http://www.ifs-net.de
  * @copyright    Copyright (C) 2009
  * @license      no public license - read license.txt in doc directory for details
@@ -166,7 +166,7 @@ function lobby_notify_newreply($topic,$posting)
 {
   	// get all subscribers for forum
   	$forum_subscribers = pnModAPIFunc('lobby','subscriptions','get',array('fid' => $topic['fid']));
-  	$emails = array();
+   	$emails = array();
   	foreach ($forum_subscribers as $x) {
 		$uid = $x['uid'];
 		$email = pnUserGetVar('email',$uid);
